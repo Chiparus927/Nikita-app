@@ -1,0 +1,1209 @@
+11:40:31.111 Main start
+11:40:31.147 Before FormLogin ctor
+11:40:31.192 FormLogin ctor start
+11:40:31.427 FormLogin ctor end
+11:40:31.427 After FormLogin ctor
+11:40:31.434 FormLogin HandleCreated
+11:40:31.451 FormLogin Load
+11:40:31.452 FormLogin VisibleChanged=True
+11:40:31.483 FormLogin Shown
+11:40:51.492 FormLogin VisibleChanged=False
+12:10:57.167 Main start
+12:10:57.200 Before FormLogin ctor
+12:10:57.240 FormLogin ctor start
+12:10:57.446 FormLogin ctor end
+12:10:57.446 After FormLogin ctor
+12:10:57.453 FormLogin HandleCreated
+12:10:57.471 FormLogin Load
+12:10:57.472 FormLogin VisibleChanged=True
+12:10:57.508 FormLogin Shown
+12:11:28.659 FormLogin FormClosed=Cancel
+12:11:28.674 FormLogin HandleDestroyed
+12:11:37.295 Main start
+12:11:37.327 Before FormLogin ctor
+12:11:37.367 FormLogin ctor start
+12:11:37.574 FormLogin ctor end
+12:11:37.574 After FormLogin ctor
+12:11:37.580 FormLogin HandleCreated
+12:11:37.593 FormLogin Load
+12:11:37.594 FormLogin VisibleChanged=True
+12:11:37.627 FormLogin Shown
+12:15:02.794 FormLogin FormClosed=Cancel
+12:15:02.804 FormLogin HandleDestroyed
+12:30:58.971 Main start
+12:30:59.005 Before FormLogin ctor
+12:30:59.037 FormLogin ctor start
+12:30:59.210 FormLogin ctor end
+12:30:59.210 After FormLogin ctor
+12:30:59.213 FormLogin HandleCreated
+12:30:59.250 FormLogin Load
+12:30:59.251 FormLogin VisibleChanged=True
+12:30:59.273 FormLogin Shown
+12:31:18.206 Main start
+12:31:18.235 Before FormLogin ctor
+12:31:18.268 FormLogin ctor start
+12:31:18.484 FormLogin ctor end
+12:31:18.485 After FormLogin ctor
+12:31:18.487 FormLogin HandleCreated
+12:31:18.503 FormLogin Load
+12:31:18.504 FormLogin VisibleChanged=True
+12:31:18.539 FormLogin Shown
+12:31:35.821 FormLogin FormClosed=Cancel
+12:31:35.860 FormLogin HandleDestroyed
+12:33:06.824 Main start
+12:33:06.854 Before FormLogin ctor
+12:33:06.883 FormLogin ctor start
+12:33:07.030 FormLogin ctor end
+12:33:07.031 After FormLogin ctor
+12:33:07.033 FormLogin HandleCreated
+12:33:07.045 FormLogin Load
+12:33:07.046 FormLogin VisibleChanged=True
+12:33:07.069 FormLogin Shown
+12:33:19.912 FormLogin VisibleChanged=False
+12:34:52.505 FormLogin FormClosed=None
+12:34:52.507 FormLogin HandleDestroyed
+12:38:36.711 Main start
+12:38:36.734 Before FormLogin ctor
+12:38:36.760 FormLogin ctor start
+12:38:36.908 FormLogin ctor end
+12:38:36.909 After FormLogin ctor
+12:38:36.911 FormLogin HandleCreated
+12:38:36.928 FormLogin Load
+12:38:36.929 FormLogin VisibleChanged=True
+12:38:36.948 FormLogin Shown
+12:38:44.311 FormLogin VisibleChanged=False
+12:39:13.818 FormLogin FormClosed=None
+12:39:13.819 FormLogin HandleDestroyed
+12:41:08.763 Main start
+12:41:08.784 Before FormLogin ctor
+12:41:08.813 FormLogin ctor start
+12:41:08.956 FormLogin ctor end
+12:41:08.956 After FormLogin ctor
+12:41:08.959 FormLogin HandleCreated
+12:41:08.968 FormLogin Load
+12:41:08.969 FormLogin VisibleChanged=True
+12:41:08.989 FormLogin Shown
+12:41:29.388 FormLogin VisibleChanged=False
+12:44:24.805 FormLogin FormClosed=None
+12:44:24.806 FormLogin HandleDestroyed
+12:48:15.142 Main start
+12:48:15.163 Before FormLogin ctor
+12:48:15.189 FormLogin ctor start
+12:48:15.339 FormLogin ctor end
+12:48:15.339 After FormLogin ctor
+12:48:15.341 FormLogin HandleCreated
+12:48:15.355 FormLogin Load
+12:48:15.355 FormLogin VisibleChanged=True
+12:48:15.375 FormLogin Shown
+12:48:22.500 FormLogin VisibleChanged=False
+15:10:50.402 Main start
+15:10:50.442 Before FormLogin ctor
+15:10:50.490 FormLogin ctor start
+15:10:50.769 FormLogin ctor end
+15:10:50.770 After FormLogin ctor
+15:10:50.776 FormLogin HandleCreated
+15:10:50.829 FormLogin Load
+15:10:50.831 FormLogin VisibleChanged=True
+15:10:50.877 FormLogin Shown
+15:11:02.067 FormLogin VisibleChanged=False
+15:12:25.953 FormLogin ctor start
+15:12:25.956 FormLogin ctor end
+15:12:25.962 FormLogin HandleCreated
+15:12:26.032 FormLogin Load
+15:12:26.032 FormLogin VisibleChanged=True
+15:12:26.064 FormLogin Shown
+15:16:45.028 FormLogin FormClosed=Cancel
+15:16:45.029 FormLogin VisibleChanged=False
+15:16:45.046 FormLogin HandleDestroyed
+15:16:45.070 FormLogin FormClosed=None
+15:16:45.071 FormLogin HandleDestroyed
+15:44:51.869 Main start
+15:44:51.903 Before FormLogin ctor
+15:44:51.944 FormLogin ctor start
+15:44:52.159 FormLogin ctor end
+15:44:52.159 After FormLogin ctor
+15:44:52.162 FormLogin HandleCreated
+15:44:52.178 FormLogin Load
+15:44:52.179 FormLogin VisibleChanged=True
+15:44:52.210 FormLogin Shown
+15:45:04.614 FormLogin VisibleChanged=False
+15:46:10.059 FormLogin FormClosed=None
+15:46:10.061 FormLogin HandleDestroyed
+15:46:36.934 Main start
+15:46:36.970 Before FormLogin ctor
+15:46:37.010 FormLogin ctor start
+15:46:37.225 FormLogin ctor end
+15:46:37.226 After FormLogin ctor
+15:46:37.229 FormLogin HandleCreated
+15:46:37.243 FormLogin Load
+15:46:37.244 FormLogin VisibleChanged=True
+15:46:37.272 FormLogin Shown
+15:46:48.425 FormLogin VisibleChanged=False
+18:53:36.997 Main start
+18:53:37.020 Before FormLogin ctor
+18:53:37.047 FormLogin ctor start
+18:53:37.232 FormLogin ctor end
+18:53:37.232 After FormLogin ctor
+18:53:37.236 FormLogin HandleCreated
+18:53:37.261 FormLogin Load
+18:53:37.263 FormLogin VisibleChanged=True
+18:53:37.291 FormLogin Shown
+18:54:51.606 FormLogin VisibleChanged=False
+18:56:21.758 FormLogin ctor start
+18:56:21.764 FormLogin ctor end
+18:56:21.795 FormLogin HandleCreated
+18:56:21.856 FormLogin Load
+18:56:21.858 FormLogin VisibleChanged=True
+18:56:21.902 FormLogin Shown
+18:56:28.840 FormLogin FormClosed=Cancel
+18:56:28.842 FormLogin VisibleChanged=False
+18:56:28.860 FormLogin HandleDestroyed
+18:56:28.904 FormLogin FormClosed=None
+18:56:28.907 FormLogin HandleDestroyed
+22:57:44.856 Main start
+22:57:44.898 Before FormLogin ctor
+22:57:44.948 FormLogin ctor start
+22:57:45.193 FormLogin ctor end
+22:57:45.193 After FormLogin ctor
+22:57:45.198 FormLogin HandleCreated
+22:57:45.225 FormLogin Load
+22:57:45.226 FormLogin VisibleChanged=True
+22:57:45.269 FormLogin Shown
+22:57:54.424 FormLogin VisibleChanged=False
+23:07:19.502 FormLogin FormClosed=None
+23:07:19.504 FormLogin HandleDestroyed
+23:24:25.671 Main start
+23:24:25.703 Before FormLogin ctor
+23:24:25.895 FormLogin ctor start
+23:24:26.098 FormLogin ctor end
+23:24:26.099 After FormLogin ctor
+23:24:26.101 FormLogin HandleCreated
+23:24:26.127 FormLogin Load
+23:24:26.127 FormLogin VisibleChanged=True
+23:24:26.140 FormLogin Shown
+23:24:40.920 FormLogin VisibleChanged=False
+23:27:33.039 FormLogin FormClosed=None
+23:27:33.042 FormLogin HandleDestroyed
+23:34:10.672 Main start
+23:34:10.697 Before FormLogin ctor
+23:34:10.739 FormLogin ctor start
+23:34:10.907 FormLogin ctor end
+23:34:10.908 After FormLogin ctor
+23:34:10.910 FormLogin HandleCreated
+23:34:10.921 FormLogin Load
+23:34:10.922 FormLogin VisibleChanged=True
+23:34:10.946 FormLogin Shown
+00:03:33.364 FormLogin VisibleChanged=False
+00:17:30.274 FormLogin FormClosed=None
+00:17:30.276 FormLogin HandleDestroyed
+00:17:44.574 Main start
+00:17:44.602 Before FormLogin ctor
+00:17:44.758 FormLogin ctor start
+00:17:44.926 FormLogin ctor end
+00:17:44.927 After FormLogin ctor
+00:17:44.929 FormLogin HandleCreated
+00:17:44.941 FormLogin Load
+00:17:44.942 FormLogin VisibleChanged=True
+00:17:44.964 FormLogin Shown
+00:18:20.350 FormLogin VisibleChanged=False
+00:19:52.899 FormLogin FormClosed=None
+00:19:52.902 FormLogin HandleDestroyed
+00:24:34.024 Main start
+00:24:34.053 Before FormLogin ctor
+00:24:34.110 FormLogin ctor start
+00:24:34.291 FormLogin ctor end
+00:24:34.291 After FormLogin ctor
+00:24:34.293 FormLogin HandleCreated
+00:24:34.302 FormLogin Load
+00:24:34.303 FormLogin VisibleChanged=True
+00:24:34.326 FormLogin Shown
+00:25:06.734 FormLogin VisibleChanged=False
+00:27:39.308 FormLogin FormClosed=None
+00:27:39.310 FormLogin HandleDestroyed
+00:28:05.678 Main start
+00:28:05.701 Before FormLogin ctor
+00:28:05.738 FormLogin ctor start
+00:28:05.882 FormLogin ctor end
+00:28:05.882 After FormLogin ctor
+00:28:05.885 FormLogin HandleCreated
+00:28:05.894 FormLogin Load
+00:28:05.895 FormLogin VisibleChanged=True
+00:28:05.921 FormLogin Shown
+00:28:33.579 FormLogin VisibleChanged=False
+00:28:40.796 FormLogin FormClosed=None
+00:28:40.800 FormLogin HandleDestroyed
+00:40:10.585 Main start
+00:40:10.607 Before FormLogin ctor
+00:40:10.633 FormLogin ctor start
+00:40:10.781 FormLogin ctor end
+00:40:10.781 After FormLogin ctor
+00:40:10.783 FormLogin HandleCreated
+00:40:10.800 FormLogin Load
+00:40:10.801 FormLogin VisibleChanged=True
+00:40:10.827 FormLogin Shown
+00:40:47.876 FormLogin VisibleChanged=False
+00:45:45.664 FormLogin FormClosed=None
+00:45:45.666 FormLogin HandleDestroyed
+00:45:50.617 Main start
+00:45:50.644 Before FormLogin ctor
+00:45:50.673 FormLogin ctor start
+00:45:50.819 FormLogin ctor end
+00:45:50.819 After FormLogin ctor
+00:45:50.821 FormLogin HandleCreated
+00:45:50.830 FormLogin Load
+00:45:50.831 FormLogin VisibleChanged=True
+00:45:50.854 FormLogin Shown
+00:45:57.716 FormLogin FormClosed=Cancel
+00:45:57.723 FormLogin HandleDestroyed
+00:46:08.469 Main start
+00:46:08.491 Before FormLogin ctor
+00:46:08.525 FormLogin ctor start
+00:46:08.663 FormLogin ctor end
+00:46:08.664 After FormLogin ctor
+00:46:08.681 FormLogin HandleCreated
+00:46:08.691 FormLogin Load
+00:46:08.691 FormLogin VisibleChanged=True
+00:46:08.720 FormLogin Shown
+00:46:16.652 FormLogin FormClosed=Cancel
+00:46:16.660 FormLogin HandleDestroyed
+00:46:21.205 Main start
+00:46:21.228 Before FormLogin ctor
+00:46:21.263 FormLogin ctor start
+00:46:21.406 FormLogin ctor end
+00:46:21.407 After FormLogin ctor
+00:46:21.409 FormLogin HandleCreated
+00:46:21.420 FormLogin Load
+00:46:21.421 FormLogin VisibleChanged=True
+00:46:21.444 FormLogin Shown
+00:48:22.380 FormLogin FormClosed=Cancel
+00:48:22.399 FormLogin HandleDestroyed
+00:48:32.145 Main start
+00:48:32.167 Before FormLogin ctor
+00:48:32.193 FormLogin ctor start
+00:48:32.333 FormLogin ctor end
+00:48:32.334 After FormLogin ctor
+00:48:32.336 FormLogin HandleCreated
+00:48:32.345 FormLogin Load
+00:48:32.346 FormLogin VisibleChanged=True
+00:48:32.365 FormLogin Shown
+07:59:06.609 Main start
+07:59:06.656 Before FormLogin ctor
+07:59:06.712 FormLogin ctor start
+07:59:06.955 FormLogin ctor end
+07:59:06.955 After FormLogin ctor
+07:59:06.958 FormLogin HandleCreated
+07:59:06.987 FormLogin Load
+07:59:06.988 FormLogin VisibleChanged=True
+07:59:07.009 FormLogin Shown
+08:02:13.331 FormLogin FormClosed=None
+08:02:13.391 FormLogin HandleDestroyed
+08:03:48.300 Main start
+08:03:48.343 Before FormLogin ctor
+08:03:48.403 FormLogin ctor start
+08:03:48.630 FormLogin ctor end
+08:03:48.630 After FormLogin ctor
+08:03:48.633 FormLogin HandleCreated
+08:03:48.695 FormLogin Load
+08:03:48.696 FormLogin VisibleChanged=True
+08:03:48.722 FormLogin Shown
+08:13:07.734 FormLogin FormClosed=Cancel
+08:13:07.741 FormLogin HandleDestroyed
+08:13:50.076 Main start
+08:13:50.113 Before FormLogin ctor
+08:13:50.367 FormLogin ctor start
+08:13:50.625 FormLogin ctor end
+08:13:50.625 After FormLogin ctor
+08:13:50.629 FormLogin HandleCreated
+08:13:50.642 FormLogin Load
+08:13:50.643 FormLogin VisibleChanged=True
+08:13:50.668 FormLogin Shown
+08:14:42.416 FormLogin FormClosed=None
+08:14:42.435 FormLogin HandleDestroyed
+08:16:32.657 Main start
+08:16:32.689 Before FormLogin ctor
+08:16:32.727 FormLogin ctor start
+08:16:32.945 FormLogin ctor end
+08:16:32.946 After FormLogin ctor
+08:16:32.950 FormLogin HandleCreated
+08:16:32.964 FormLogin Load
+08:16:32.965 FormLogin VisibleChanged=True
+08:16:32.999 FormLogin Shown
+08:16:53.315 FormLogin FormClosed=None
+08:16:53.354 FormLogin HandleDestroyed
+08:18:51.768 Main start
+08:18:51.800 Before FormLogin ctor
+08:18:51.839 FormLogin ctor start
+08:18:52.085 FormLogin ctor end
+08:18:52.085 After FormLogin ctor
+08:18:52.098 FormLogin HandleCreated
+08:18:52.126 FormLogin Load
+08:18:52.128 FormLogin VisibleChanged=True
+08:18:52.160 FormLogin Shown
+08:23:59.782 Main start
+08:23:59.818 Before FormLogin ctor
+08:23:59.858 FormLogin ctor start
+08:24:00.067 FormLogin ctor end
+08:24:00.068 After FormLogin ctor
+08:24:00.072 FormLogin HandleCreated
+08:24:00.085 FormLogin Load
+08:24:00.086 FormLogin VisibleChanged=True
+08:24:00.113 FormLogin Shown
+08:30:53.382 FormLogin FormClosed=Cancel
+08:30:53.388 FormLogin HandleDestroyed
+08:34:40.696 Main start
+08:34:40.730 Before FormLogin ctor
+08:34:40.768 FormLogin ctor start
+08:34:40.980 FormLogin ctor end
+08:34:40.981 After FormLogin ctor
+08:34:40.984 FormLogin HandleCreated
+08:34:40.998 FormLogin Load
+08:34:40.999 FormLogin VisibleChanged=True
+08:34:41.030 FormLogin Shown
+08:35:09.471 FormLogin FormClosed=Cancel
+08:35:09.486 FormLogin HandleDestroyed
+08:36:44.963 Main start
+08:36:45.000 Before FormLogin ctor
+08:36:45.041 FormLogin ctor start
+08:36:45.249 FormLogin ctor end
+08:36:45.250 After FormLogin ctor
+08:36:45.253 FormLogin HandleCreated
+08:36:45.270 FormLogin Load
+08:36:45.271 FormLogin VisibleChanged=True
+08:36:45.300 FormLogin Shown
+08:37:20.400 FormLogin FormClosed=None
+08:37:20.420 FormLogin HandleDestroyed
+08:37:33.691 Main start
+08:37:33.726 Before FormLogin ctor
+08:37:33.766 FormLogin ctor start
+08:37:33.977 FormLogin ctor end
+08:37:33.977 After FormLogin ctor
+08:37:33.981 FormLogin HandleCreated
+08:37:33.994 FormLogin Load
+08:37:33.995 FormLogin VisibleChanged=True
+08:37:34.025 FormLogin Shown
+08:37:49.102 FormLogin VisibleChanged=False
+08:38:06.089 FormLogin FormClosed=None
+08:38:06.090 FormLogin HandleDestroyed
+08:38:15.619 Main start
+08:38:15.654 Before FormLogin ctor
+08:38:15.694 FormLogin ctor start
+08:38:15.915 FormLogin ctor end
+08:38:15.916 After FormLogin ctor
+08:38:15.919 FormLogin HandleCreated
+08:38:15.931 FormLogin Load
+08:38:15.932 FormLogin VisibleChanged=True
+08:38:15.962 FormLogin Shown
+08:42:00.538 FormLogin FormClosed=None
+08:42:00.546 FormLogin HandleDestroyed
+08:42:28.920 Main start
+08:42:28.965 Before FormLogin ctor
+08:42:29.003 FormLogin ctor start
+08:42:29.213 FormLogin ctor end
+08:42:29.214 After FormLogin ctor
+08:42:29.217 FormLogin HandleCreated
+08:42:29.230 FormLogin Load
+08:42:29.231 FormLogin VisibleChanged=True
+08:42:29.253 FormLogin Shown
+08:46:05.162 FormLogin FormClosed=None
+08:46:05.181 FormLogin HandleDestroyed
+08:49:54.012 Main start
+08:49:54.047 Before FormLogin ctor
+08:49:54.091 FormLogin ctor start
+08:49:54.303 FormLogin ctor end
+08:49:54.303 After FormLogin ctor
+08:49:54.308 FormLogin HandleCreated
+08:49:54.323 FormLogin Load
+08:49:54.324 FormLogin VisibleChanged=True
+08:49:54.355 FormLogin Shown
+08:52:11.039 FormLogin FormClosed=None
+08:52:11.060 FormLogin HandleDestroyed
+08:57:18.434 Main start
+08:57:18.476 Before FormLogin ctor
+08:57:18.529 FormLogin ctor start
+08:57:18.739 FormLogin ctor end
+08:57:18.740 After FormLogin ctor
+08:57:18.744 FormLogin HandleCreated
+08:57:18.757 FormLogin Load
+08:57:18.758 FormLogin VisibleChanged=True
+08:57:18.786 FormLogin Shown
+08:57:42.793 FormLogin VisibleChanged=False
+08:57:45.856 FormLogin FormClosed=None
+08:57:45.858 FormLogin HandleDestroyed
+08:57:52.148 Main start
+08:57:52.180 Before FormLogin ctor
+08:57:52.217 FormLogin ctor start
+08:57:52.423 FormLogin ctor end
+08:57:52.424 After FormLogin ctor
+08:57:52.427 FormLogin HandleCreated
+08:57:52.442 FormLogin Load
+08:57:52.443 FormLogin VisibleChanged=True
+08:57:52.469 FormLogin Shown
+09:01:42.876 FormLogin FormClosed=None
+09:01:42.897 FormLogin HandleDestroyed
+09:01:56.819 Main start
+09:01:56.854 Before FormLogin ctor
+09:01:56.898 FormLogin ctor start
+09:01:57.107 FormLogin ctor end
+09:01:57.108 After FormLogin ctor
+09:01:57.111 FormLogin HandleCreated
+09:01:57.124 FormLogin Load
+09:01:57.125 FormLogin VisibleChanged=True
+09:01:57.154 FormLogin Shown
+09:02:59.526 FormLogin VisibleChanged=False
+09:05:04.312 FormLogin FormClosed=None
+09:05:04.313 FormLogin HandleDestroyed
+09:07:19.630 Main start
+09:07:19.669 Before FormLogin ctor
+09:07:19.706 FormLogin ctor start
+09:07:19.919 FormLogin ctor end
+09:07:19.919 After FormLogin ctor
+09:07:19.923 FormLogin HandleCreated
+09:07:19.936 FormLogin Load
+09:07:19.938 FormLogin VisibleChanged=True
+09:07:19.972 FormLogin Shown
+09:07:29.799 FormLogin VisibleChanged=False
+09:08:06.056 FormLogin FormClosed=None
+09:08:06.058 FormLogin HandleDestroyed
+09:29:47.834 Main start
+09:29:47.874 Before FormLogin ctor
+09:29:47.921 FormLogin ctor start
+09:29:48.152 FormLogin ctor end
+09:29:48.152 After FormLogin ctor
+09:29:48.156 FormLogin HandleCreated
+09:29:48.169 FormLogin Load
+09:29:48.170 FormLogin VisibleChanged=True
+09:29:48.206 FormLogin Shown
+09:29:56.872 FormLogin VisibleChanged=False
+09:42:21.072 FormLogin FormClosed=None
+09:42:21.074 FormLogin HandleDestroyed
+09:42:34.339 Main start
+09:42:34.373 Before FormLogin ctor
+09:42:34.414 FormLogin ctor start
+09:42:34.644 FormLogin ctor end
+09:42:34.644 After FormLogin ctor
+09:42:34.648 FormLogin HandleCreated
+09:42:34.668 FormLogin Load
+09:42:34.669 FormLogin VisibleChanged=True
+09:42:34.702 FormLogin Shown
+09:42:57.055 FormLogin VisibleChanged=False
+09:43:11.168 FormLogin ctor start
+09:43:11.171 FormLogin ctor end
+09:43:11.176 FormLogin HandleCreated
+09:43:11.222 FormLogin Load
+09:43:11.226 FormLogin VisibleChanged=True
+09:43:11.259 FormLogin Shown
+09:43:20.734 FormLogin VisibleChanged=False
+09:50:04.316 FormLogin FormClosed=Cancel
+09:50:04.318 FormLogin HandleDestroyed
+09:50:04.328 FormLogin FormClosed=None
+09:50:04.329 FormLogin HandleDestroyed
+09:52:40.091 Main start
+09:52:40.124 Before FormLogin ctor
+09:52:40.166 FormLogin ctor start
+09:52:40.390 FormLogin ctor end
+09:52:40.390 After FormLogin ctor
+09:52:40.393 FormLogin HandleCreated
+09:52:40.409 FormLogin Load
+09:52:40.410 FormLogin VisibleChanged=True
+09:52:40.449 FormLogin Shown
+09:53:34.712 FormLogin VisibleChanged=False
+09:56:07.304 FormLogin FormClosed=None
+09:56:07.306 FormLogin HandleDestroyed
+10:22:35.172 Main start
+10:22:35.228 Before FormLogin ctor
+10:22:35.295 FormLogin ctor start
+10:22:35.548 FormLogin ctor end
+10:22:35.548 After FormLogin ctor
+10:22:35.558 FormLogin HandleCreated
+10:22:35.582 FormLogin Load
+10:22:35.584 FormLogin VisibleChanged=True
+10:22:35.616 FormLogin Shown
+10:27:14.825 Main start
+10:27:14.867 Before FormLogin ctor
+10:27:14.917 FormLogin ctor start
+10:27:15.164 FormLogin ctor end
+10:27:15.165 After FormLogin ctor
+10:27:15.181 FormLogin HandleCreated
+10:27:15.208 FormLogin Load
+10:27:15.209 FormLogin VisibleChanged=True
+10:27:15.249 FormLogin Shown
+10:27:52.126 FormLogin FormClosed=None
+10:27:52.135 FormLogin HandleDestroyed
+10:27:53.106 FormLogin FormClosed=None
+10:27:53.118 FormLogin HandleDestroyed
+10:27:58.720 Main start
+10:27:58.747 Before FormLogin ctor
+10:27:58.782 FormLogin ctor start
+10:27:58.945 FormLogin ctor end
+10:27:58.946 After FormLogin ctor
+10:27:58.952 FormLogin HandleCreated
+10:27:58.965 FormLogin Load
+10:27:58.966 FormLogin VisibleChanged=True
+10:27:58.994 FormLogin Shown
+10:30:24.901 FormLogin FormClosed=None
+10:30:24.913 FormLogin HandleDestroyed
+10:30:38.266 Main start
+10:30:38.293 Before FormLogin ctor
+10:30:38.327 FormLogin ctor start
+10:30:38.487 FormLogin ctor end
+10:30:38.488 After FormLogin ctor
+10:30:38.495 FormLogin HandleCreated
+10:30:38.508 FormLogin Load
+10:30:38.508 FormLogin VisibleChanged=True
+10:30:38.535 FormLogin Shown
+10:33:11.062 FormLogin FormClosed=Cancel
+10:33:11.066 FormLogin HandleDestroyed
+10:33:15.730 Main start
+10:33:15.758 Before FormLogin ctor
+10:33:15.793 FormLogin ctor start
+10:33:15.957 FormLogin ctor end
+10:33:15.958 After FormLogin ctor
+10:33:15.965 FormLogin HandleCreated
+10:33:15.978 FormLogin Load
+10:33:15.979 FormLogin VisibleChanged=True
+10:33:16.008 FormLogin Shown
+10:33:49.300 FormLogin VisibleChanged=False
+10:40:37.400 FormLogin FormClosed=None
+10:40:37.401 FormLogin HandleDestroyed
+10:40:42.340 Main start
+10:40:42.366 Before FormLogin ctor
+10:40:42.401 FormLogin ctor start
+10:40:42.561 FormLogin ctor end
+10:40:42.562 After FormLogin ctor
+10:40:42.569 FormLogin HandleCreated
+10:40:42.582 FormLogin Load
+10:40:42.583 FormLogin VisibleChanged=True
+10:40:42.615 FormLogin Shown
+10:41:08.827 FormLogin VisibleChanged=False
+10:42:14.510 FormLogin ctor start
+10:42:14.512 FormLogin ctor end
+10:42:14.518 FormLogin HandleCreated
+10:42:14.535 FormLogin Load
+10:42:14.536 FormLogin VisibleChanged=True
+10:42:14.552 FormLogin Shown
+10:43:21.803 FormLogin VisibleChanged=False
+10:44:30.096 FormLogin ctor start
+10:44:30.098 FormLogin ctor end
+10:44:30.103 FormLogin HandleCreated
+10:44:30.117 FormLogin Load
+10:44:30.118 FormLogin VisibleChanged=True
+10:44:30.134 FormLogin Shown
+10:44:31.731 FormLogin FormClosed=Cancel
+10:44:31.732 FormLogin VisibleChanged=False
+10:44:31.737 FormLogin HandleDestroyed
+10:44:31.751 FormLogin FormClosed=Cancel
+10:44:31.752 FormLogin HandleDestroyed
+10:44:31.756 FormLogin FormClosed=None
+10:44:31.757 FormLogin HandleDestroyed
+10:44:38.400 Main start
+10:44:38.427 Before FormLogin ctor
+10:44:38.461 FormLogin ctor start
+10:44:38.623 FormLogin ctor end
+10:44:38.624 After FormLogin ctor
+10:44:38.630 FormLogin HandleCreated
+10:44:38.644 FormLogin Load
+10:44:38.644 FormLogin VisibleChanged=True
+10:44:38.670 FormLogin Shown
+10:44:47.963 FormLogin VisibleChanged=False
+10:51:16.611 FormLogin FormClosed=None
+10:51:16.613 FormLogin HandleDestroyed
+10:51:26.532 Main start
+10:51:26.558 Before FormLogin ctor
+10:51:26.592 FormLogin ctor start
+10:51:26.753 FormLogin ctor end
+10:51:26.753 After FormLogin ctor
+10:51:26.761 FormLogin HandleCreated
+10:51:26.775 FormLogin Load
+10:51:26.776 FormLogin VisibleChanged=True
+10:51:26.807 FormLogin Shown
+10:51:39.395 FormLogin VisibleChanged=False
+10:51:48.358 FormLogin ctor start
+10:51:48.360 FormLogin ctor end
+10:51:48.367 FormLogin HandleCreated
+10:51:48.379 FormLogin Load
+10:51:48.380 FormLogin VisibleChanged=True
+10:51:48.404 FormLogin Shown
+10:52:01.857 FormLogin VisibleChanged=False
+10:54:07.029 FormLogin FormClosed=Cancel
+10:54:07.031 FormLogin HandleDestroyed
+10:54:07.037 FormLogin FormClosed=None
+10:54:07.038 FormLogin HandleDestroyed
+10:59:41.047 Main start
+10:59:41.074 Before FormLogin ctor
+10:59:41.134 FormLogin ctor start
+10:59:41.306 FormLogin ctor end
+10:59:41.307 After FormLogin ctor
+10:59:41.314 FormLogin HandleCreated
+10:59:41.329 FormLogin Load
+10:59:41.330 FormLogin VisibleChanged=True
+10:59:41.359 FormLogin Shown
+11:00:24.886 FormLogin VisibleChanged=False
+11:14:32.570 FormLogin FormClosed=None
+11:14:32.572 FormLogin HandleDestroyed
+11:14:39.040 Main start
+11:14:39.065 Before FormLogin ctor
+11:14:39.101 FormLogin ctor start
+11:14:39.265 FormLogin ctor end
+11:14:39.265 After FormLogin ctor
+11:14:39.273 FormLogin HandleCreated
+11:14:39.287 FormLogin Load
+11:14:39.288 FormLogin VisibleChanged=True
+11:14:39.317 FormLogin Shown
+11:14:57.183 FormLogin VisibleChanged=False
+11:16:31.703 FormLogin FormClosed=None
+11:16:31.704 FormLogin HandleDestroyed
+11:16:37.491 Main start
+11:16:37.516 Before FormLogin ctor
+11:16:37.552 FormLogin ctor start
+11:16:37.713 FormLogin ctor end
+11:16:37.713 After FormLogin ctor
+11:16:37.722 FormLogin HandleCreated
+11:16:37.736 FormLogin Load
+11:16:37.737 FormLogin VisibleChanged=True
+11:16:37.764 FormLogin Shown
+11:16:49.237 FormLogin VisibleChanged=False
+11:19:37.482 FormLogin FormClosed=None
+11:19:37.485 FormLogin HandleDestroyed
+11:19:42.176 Main start
+11:19:42.208 Before FormLogin ctor
+11:19:42.246 FormLogin ctor start
+11:19:42.413 FormLogin ctor end
+11:19:42.413 After FormLogin ctor
+11:19:42.422 FormLogin HandleCreated
+11:19:42.437 FormLogin Load
+11:19:42.438 FormLogin VisibleChanged=True
+11:19:42.470 FormLogin Shown
+11:19:50.173 FormLogin VisibleChanged=False
+11:26:20.153 FormLogin FormClosed=None
+11:26:20.157 FormLogin HandleDestroyed
+11:26:28.285 Main start
+11:26:28.312 Before FormLogin ctor
+11:26:28.348 FormLogin ctor start
+11:26:28.509 FormLogin ctor end
+11:26:28.510 After FormLogin ctor
+11:26:28.523 FormLogin HandleCreated
+11:26:28.538 FormLogin Load
+11:26:28.539 FormLogin VisibleChanged=True
+11:26:28.573 FormLogin Shown
+11:26:39.585 FormLogin VisibleChanged=False
+11:30:22.488 FormLogin FormClosed=None
+11:30:22.489 FormLogin HandleDestroyed
+11:30:28.324 Main start
+11:30:28.351 Before FormLogin ctor
+11:30:28.387 FormLogin ctor start
+11:30:28.546 FormLogin ctor end
+11:30:28.547 After FormLogin ctor
+11:30:28.555 FormLogin HandleCreated
+11:30:28.568 FormLogin Load
+11:30:28.569 FormLogin VisibleChanged=True
+11:30:28.598 FormLogin Shown
+11:30:53.486 FormLogin VisibleChanged=False
+11:33:24.671 FormLogin FormClosed=None
+11:33:24.672 FormLogin HandleDestroyed
+11:33:29.569 Main start
+11:33:29.601 Before FormLogin ctor
+11:33:29.635 FormLogin ctor start
+11:33:29.796 FormLogin ctor end
+11:33:29.796 After FormLogin ctor
+11:33:29.805 FormLogin HandleCreated
+11:33:29.818 FormLogin Load
+11:33:29.819 FormLogin VisibleChanged=True
+11:33:29.855 FormLogin Shown
+11:34:19.886 FormLogin VisibleChanged=False
+11:37:35.939 FormLogin FormClosed=None
+11:37:35.941 FormLogin HandleDestroyed
+11:37:40.467 Main start
+11:37:40.499 Before FormLogin ctor
+11:37:40.534 FormLogin ctor start
+11:37:40.693 FormLogin ctor end
+11:37:40.694 After FormLogin ctor
+11:37:40.701 FormLogin HandleCreated
+11:37:40.715 FormLogin Load
+11:37:40.716 FormLogin VisibleChanged=True
+11:37:40.745 FormLogin Shown
+11:37:53.653 FormLogin VisibleChanged=False
+11:39:02.868 FormLogin ctor start
+11:39:02.870 FormLogin ctor end
+11:39:02.877 FormLogin HandleCreated
+11:39:02.897 FormLogin Load
+11:39:02.898 FormLogin VisibleChanged=True
+11:39:02.926 FormLogin Shown
+11:39:55.376 FormLogin VisibleChanged=False
+11:40:13.659 FormLogin ctor start
+11:40:13.660 FormLogin ctor end
+11:40:13.666 FormLogin HandleCreated
+11:40:13.681 FormLogin Load
+11:40:13.681 FormLogin VisibleChanged=True
+11:40:13.700 FormLogin Shown
+11:40:23.561 FormLogin VisibleChanged=False
+11:40:26.908 FormLogin ctor start
+11:40:26.910 FormLogin ctor end
+11:40:26.917 FormLogin HandleCreated
+11:40:26.936 FormLogin Load
+11:40:26.937 FormLogin VisibleChanged=True
+11:40:26.959 FormLogin Shown
+11:40:40.501 FormLogin VisibleChanged=False
+11:49:00.129 FormLogin FormClosed=Cancel
+11:49:00.130 FormLogin HandleDestroyed
+11:49:00.136 FormLogin FormClosed=Cancel
+11:49:00.137 FormLogin HandleDestroyed
+11:49:00.145 FormLogin FormClosed=Cancel
+11:49:00.146 FormLogin HandleDestroyed
+11:49:00.150 FormLogin FormClosed=None
+11:49:00.151 FormLogin HandleDestroyed
+11:49:16.056 Main start
+11:49:16.081 Before FormLogin ctor
+11:49:16.118 FormLogin ctor start
+11:49:16.279 FormLogin ctor end
+11:49:16.280 After FormLogin ctor
+11:49:16.289 FormLogin HandleCreated
+11:49:16.302 FormLogin Load
+11:49:16.303 FormLogin VisibleChanged=True
+11:49:16.332 FormLogin Shown
+11:49:28.447 FormLogin VisibleChanged=False
+11:52:38.386 FormLogin FormClosed=None
+11:52:38.388 FormLogin HandleDestroyed
+11:52:43.519 Main start
+11:52:43.546 Before FormLogin ctor
+11:52:43.583 FormLogin ctor start
+11:52:43.747 FormLogin ctor end
+11:52:43.747 After FormLogin ctor
+11:52:43.757 FormLogin HandleCreated
+11:52:43.771 FormLogin Load
+11:52:43.772 FormLogin VisibleChanged=True
+11:52:43.804 FormLogin Shown
+11:53:50.577 FormLogin VisibleChanged=False
+11:55:16.924 FormLogin ctor start
+11:55:16.926 FormLogin ctor end
+11:55:16.931 FormLogin HandleCreated
+11:55:16.952 FormLogin Load
+11:55:16.953 FormLogin VisibleChanged=True
+11:55:16.971 FormLogin Shown
+11:55:26.412 FormLogin VisibleChanged=False
+11:55:33.853 FormLogin ctor start
+11:55:33.855 FormLogin ctor end
+11:55:33.863 FormLogin HandleCreated
+11:55:33.880 FormLogin Load
+11:55:33.881 FormLogin VisibleChanged=True
+11:55:33.897 FormLogin Shown
+11:55:40.373 FormLogin VisibleChanged=False
+11:55:48.788 FormLogin ctor start
+11:55:48.791 FormLogin ctor end
+11:55:48.798 FormLogin HandleCreated
+11:55:48.819 FormLogin Load
+11:55:48.819 FormLogin VisibleChanged=True
+11:55:48.841 FormLogin Shown
+11:55:59.726 FormLogin VisibleChanged=False
+11:57:49.268 FormLogin ctor start
+11:57:49.270 FormLogin ctor end
+11:57:49.278 FormLogin HandleCreated
+11:57:49.293 FormLogin Load
+11:57:49.293 FormLogin VisibleChanged=True
+11:57:49.310 FormLogin Shown
+11:57:51.408 FormLogin FormClosed=Cancel
+11:57:51.408 FormLogin VisibleChanged=False
+11:57:51.411 FormLogin HandleDestroyed
+11:57:51.426 FormLogin FormClosed=Cancel
+11:57:51.427 FormLogin HandleDestroyed
+11:57:51.432 FormLogin FormClosed=Cancel
+11:57:51.433 FormLogin HandleDestroyed
+11:57:51.436 FormLogin FormClosed=Cancel
+11:57:51.437 FormLogin HandleDestroyed
+11:57:51.440 FormLogin FormClosed=None
+11:57:51.440 FormLogin HandleDestroyed
+12:01:08.537 Main start
+12:01:08.564 Before FormLogin ctor
+12:01:08.600 FormLogin ctor start
+12:01:08.770 FormLogin ctor end
+12:01:08.771 After FormLogin ctor
+12:01:08.779 FormLogin HandleCreated
+12:01:08.794 FormLogin Load
+12:01:08.795 FormLogin VisibleChanged=True
+12:01:08.827 FormLogin Shown
+12:01:22.574 FormLogin VisibleChanged=False
+12:01:51.334 FormLogin ctor start
+12:01:51.336 FormLogin ctor end
+12:01:51.343 FormLogin HandleCreated
+12:01:51.361 FormLogin Load
+12:01:51.361 FormLogin VisibleChanged=True
+12:01:51.378 FormLogin Shown
+12:02:26.089 FormLogin VisibleChanged=False
+12:04:03.832 FormLogin FormClosed=Cancel
+12:04:03.834 FormLogin HandleDestroyed
+12:04:03.849 FormLogin FormClosed=None
+12:04:03.850 FormLogin HandleDestroyed
+12:04:08.768 Main start
+12:04:08.793 Before FormLogin ctor
+12:04:08.829 FormLogin ctor start
+12:04:08.991 FormLogin ctor end
+12:04:08.992 After FormLogin ctor
+12:04:09.001 FormLogin HandleCreated
+12:04:09.016 FormLogin Load
+12:04:09.017 FormLogin VisibleChanged=True
+12:04:09.050 FormLogin Shown
+12:04:19.350 FormLogin VisibleChanged=False
+12:08:13.868 FormLogin FormClosed=None
+12:08:13.870 FormLogin HandleDestroyed
+12:08:18.425 Main start
+12:08:18.450 Before FormLogin ctor
+12:08:18.488 FormLogin ctor start
+12:08:18.649 FormLogin ctor end
+12:08:18.649 After FormLogin ctor
+12:08:18.659 FormLogin HandleCreated
+12:08:18.671 FormLogin Load
+12:08:18.672 FormLogin VisibleChanged=True
+12:08:18.701 FormLogin Shown
+12:08:34.051 FormLogin VisibleChanged=False
+12:15:18.966 FormLogin ctor start
+12:15:18.973 FormLogin ctor end
+12:15:18.995 FormLogin HandleCreated
+12:15:19.019 FormLogin Load
+12:15:19.020 FormLogin VisibleChanged=True
+12:15:19.051 FormLogin Shown
+12:19:30.854 FormLogin VisibleChanged=False
+12:24:18.891 FormLogin ctor start
+12:24:18.894 FormLogin ctor end
+12:24:18.918 FormLogin HandleCreated
+12:24:18.939 FormLogin Load
+12:24:18.940 FormLogin VisibleChanged=True
+12:24:18.971 FormLogin Shown
+12:24:45.927 FormLogin VisibleChanged=False
+12:25:39.197 FormLogin ctor start
+12:25:39.206 FormLogin ctor end
+12:25:39.228 FormLogin HandleCreated
+12:25:39.246 FormLogin Load
+12:25:39.247 FormLogin VisibleChanged=True
+12:25:39.279 FormLogin Shown
+12:27:03.433 FormLogin VisibleChanged=False
+12:27:09.401 FormLogin ctor start
+12:27:09.419 FormLogin ctor end
+12:27:09.435 FormLogin HandleCreated
+12:27:09.449 FormLogin Load
+12:27:09.450 FormLogin VisibleChanged=True
+12:27:09.488 FormLogin Shown
+12:27:19.987 FormLogin VisibleChanged=False
+12:27:33.614 FormLogin ctor start
+12:27:33.648 FormLogin ctor end
+12:27:33.663 FormLogin HandleCreated
+12:27:33.678 FormLogin Load
+12:27:33.678 FormLogin VisibleChanged=True
+12:27:33.714 FormLogin Shown
+12:27:50.156 FormLogin VisibleChanged=False
+13:15:25.255 FormLogin FormClosed=Cancel
+13:15:25.257 FormLogin HandleDestroyed
+13:15:25.263 FormLogin FormClosed=Cancel
+13:15:25.265 FormLogin HandleDestroyed
+13:15:25.274 FormLogin FormClosed=Cancel
+13:15:25.275 FormLogin HandleDestroyed
+13:15:25.285 FormLogin FormClosed=Cancel
+13:15:25.288 FormLogin HandleDestroyed
+13:15:25.294 FormLogin FormClosed=Cancel
+13:15:25.295 FormLogin HandleDestroyed
+13:15:25.307 FormLogin FormClosed=None
+13:15:25.308 FormLogin HandleDestroyed
+09:44:17.193 Main start
+09:44:17.229 Before FormLogin ctor
+09:44:17.616 FormLogin ctor start
+09:44:17.825 FormLogin ctor end
+09:44:17.826 After FormLogin ctor
+09:44:17.829 FormLogin HandleCreated
+09:44:17.849 FormLogin Load
+09:44:17.849 FormLogin VisibleChanged=True
+09:44:17.874 FormLogin Shown
+09:44:23.386 FormLogin FormClosed=Cancel
+09:44:23.401 FormLogin HandleDestroyed
+09:48:46.210 Main start
+09:48:46.237 Before FormLogin ctor
+09:48:46.266 FormLogin ctor start
+09:48:46.439 FormLogin ctor end
+09:48:46.440 After FormLogin ctor
+09:48:46.442 FormLogin HandleCreated
+09:48:46.459 FormLogin Load
+09:48:46.460 FormLogin VisibleChanged=True
+09:48:46.481 FormLogin Shown
+09:49:09.276 FormLogin VisibleChanged=False
+09:50:40.867 FormLogin FormClosed=None
+09:50:40.868 FormLogin HandleDestroyed
+09:50:50.541 Main start
+09:50:50.567 Before FormLogin ctor
+09:50:50.597 FormLogin ctor start
+09:50:50.757 FormLogin ctor end
+09:50:50.757 After FormLogin ctor
+09:50:50.759 FormLogin HandleCreated
+09:50:50.771 FormLogin Load
+09:50:50.772 FormLogin VisibleChanged=True
+09:50:50.790 FormLogin Shown
+09:51:00.822 FormLogin VisibleChanged=False
+10:13:34.622 FormLogin FormClosed=None
+10:13:34.623 FormLogin HandleDestroyed
+10:13:39.541 Main start
+10:13:39.567 Before FormLogin ctor
+10:13:39.616 FormLogin ctor start
+10:13:39.781 FormLogin ctor end
+10:13:39.781 After FormLogin ctor
+10:13:39.783 FormLogin HandleCreated
+10:13:39.795 FormLogin Load
+10:13:39.796 FormLogin VisibleChanged=True
+10:13:39.813 FormLogin Shown
+10:13:51.117 FormLogin VisibleChanged=False
+10:19:06.233 FormLogin FormClosed=None
+10:19:06.234 FormLogin HandleDestroyed
+10:19:10.753 Main start
+10:19:10.778 Before FormLogin ctor
+10:19:10.807 FormLogin ctor start
+10:19:10.970 FormLogin ctor end
+10:19:10.971 After FormLogin ctor
+10:19:10.973 FormLogin HandleCreated
+10:19:10.985 FormLogin Load
+10:19:10.986 FormLogin VisibleChanged=True
+10:19:11.005 FormLogin Shown
+10:19:30.711 FormLogin VisibleChanged=False
+10:21:10.818 FormLogin FormClosed=None
+10:21:10.819 FormLogin HandleDestroyed
+10:21:16.119 Main start
+10:21:16.146 Before FormLogin ctor
+10:21:16.175 FormLogin ctor start
+10:21:16.336 FormLogin ctor end
+10:21:16.336 After FormLogin ctor
+10:21:16.339 FormLogin HandleCreated
+10:21:16.350 FormLogin Load
+10:21:16.351 FormLogin VisibleChanged=True
+10:21:16.369 FormLogin Shown
+10:21:29.248 FormLogin VisibleChanged=False
+10:27:14.638 FormLogin FormClosed=None
+10:27:14.639 FormLogin HandleDestroyed
+10:27:19.587 Main start
+10:27:19.613 Before FormLogin ctor
+10:27:19.642 FormLogin ctor start
+10:27:19.803 FormLogin ctor end
+10:27:19.803 After FormLogin ctor
+10:27:19.805 FormLogin HandleCreated
+10:27:19.817 FormLogin Load
+10:27:19.818 FormLogin VisibleChanged=True
+10:27:19.838 FormLogin Shown
+10:27:37.589 FormLogin VisibleChanged=False
+10:30:15.258 FormLogin FormClosed=None
+10:30:15.259 FormLogin HandleDestroyed
+10:30:21.771 Main start
+10:30:21.797 Before FormLogin ctor
+10:30:21.828 FormLogin ctor start
+10:30:21.991 FormLogin ctor end
+10:30:21.991 After FormLogin ctor
+10:30:21.994 FormLogin HandleCreated
+10:30:22.006 FormLogin Load
+10:30:22.007 FormLogin VisibleChanged=True
+10:30:22.028 FormLogin Shown
+10:30:38.564 FormLogin VisibleChanged=False
+10:31:57.899 FormLogin FormClosed=None
+10:31:57.900 FormLogin HandleDestroyed
+10:32:06.511 Main start
+10:32:06.536 Before FormLogin ctor
+10:32:06.565 FormLogin ctor start
+10:32:06.728 FormLogin ctor end
+10:32:06.729 After FormLogin ctor
+10:32:06.731 FormLogin HandleCreated
+10:32:06.744 FormLogin Load
+10:32:06.745 FormLogin VisibleChanged=True
+10:32:06.765 FormLogin Shown
+10:32:16.094 FormLogin VisibleChanged=False
+10:34:31.856 FormLogin FormClosed=None
+10:34:31.857 FormLogin HandleDestroyed
+10:34:36.605 Main start
+10:34:36.630 Before FormLogin ctor
+10:34:36.659 FormLogin ctor start
+10:34:36.825 FormLogin ctor end
+10:34:36.825 After FormLogin ctor
+10:34:36.828 FormLogin HandleCreated
+10:34:36.840 FormLogin Load
+10:34:36.841 FormLogin VisibleChanged=True
+10:34:36.861 FormLogin Shown
+10:34:59.636 FormLogin VisibleChanged=False
+10:36:29.404 FormLogin ctor start
+10:36:29.406 FormLogin ctor end
+10:36:29.407 FormLogin HandleCreated
+10:36:29.418 FormLogin Load
+10:36:29.418 FormLogin VisibleChanged=True
+10:36:29.427 FormLogin Shown
+10:37:47.298 FormLogin FormClosed=Cancel
+10:37:47.299 FormLogin VisibleChanged=False
+10:37:47.305 FormLogin HandleDestroyed
+10:37:47.315 FormLogin FormClosed=None
+10:37:47.316 FormLogin HandleDestroyed
+10:37:53.161 Main start
+10:37:53.188 Before FormLogin ctor
+10:37:53.217 FormLogin ctor start
+10:37:53.379 FormLogin ctor end
+10:37:53.379 After FormLogin ctor
+10:37:53.381 FormLogin HandleCreated
+10:37:53.393 FormLogin Load
+10:37:53.394 FormLogin VisibleChanged=True
+10:37:53.413 FormLogin Shown
+10:41:36.113 FormLogin FormClosed=Cancel
+10:41:36.125 FormLogin HandleDestroyed
+10:41:41.909 Main start
+10:41:41.933 Before FormLogin ctor
+10:41:41.963 FormLogin ctor start
+10:41:42.123 FormLogin ctor end
+10:41:42.124 After FormLogin ctor
+10:41:42.126 FormLogin HandleCreated
+10:41:42.138 FormLogin Load
+10:41:42.139 FormLogin VisibleChanged=True
+10:41:42.159 FormLogin Shown
+10:44:43.568 FormLogin FormClosed=Cancel
+10:44:43.571 FormLogin HandleDestroyed
+10:44:50.261 Main start
+10:44:50.287 Before FormLogin ctor
+10:44:50.317 FormLogin ctor start
+10:44:50.479 FormLogin ctor end
+10:44:50.480 After FormLogin ctor
+10:44:50.482 FormLogin HandleCreated
+10:44:50.494 FormLogin Load
+10:44:50.495 FormLogin VisibleChanged=True
+10:44:50.516 FormLogin Shown
+10:45:00.229 FormLogin VisibleChanged=False
+10:50:03.373 FormLogin FormClosed=None
+10:50:03.374 FormLogin HandleDestroyed
+10:50:08.534 Main start
+10:50:08.561 Before FormLogin ctor
+10:50:08.592 FormLogin ctor start
+10:50:08.751 FormLogin ctor end
+10:50:08.752 After FormLogin ctor
+10:50:08.754 FormLogin HandleCreated
+10:50:08.765 FormLogin Load
+10:50:08.766 FormLogin VisibleChanged=True
+10:50:08.785 FormLogin Shown
+10:50:20.252 FormLogin VisibleChanged=False
+10:52:24.889 FormLogin FormClosed=None
+10:52:24.890 FormLogin HandleDestroyed
+10:52:29.690 Main start
+10:52:29.716 Before FormLogin ctor
+10:52:29.747 FormLogin ctor start
+10:52:29.910 FormLogin ctor end
+10:52:29.911 After FormLogin ctor
+10:52:29.913 FormLogin HandleCreated
+10:52:29.925 FormLogin Load
+10:52:29.925 FormLogin VisibleChanged=True
+10:52:29.945 FormLogin Shown
+10:52:46.249 FormLogin VisibleChanged=False
+10:55:22.057 FormLogin FormClosed=None
+10:55:22.058 FormLogin HandleDestroyed
+10:55:27.025 Main start
+10:55:27.050 Before FormLogin ctor
+10:55:27.079 FormLogin ctor start
+10:55:27.237 FormLogin ctor end
+10:55:27.238 After FormLogin ctor
+10:55:27.240 FormLogin HandleCreated
+10:55:27.251 FormLogin Load
+10:55:27.252 FormLogin VisibleChanged=True
+10:55:27.271 FormLogin Shown
+10:55:37.420 FormLogin VisibleChanged=False
+11:00:10.193 FormLogin FormClosed=None
+11:00:10.195 FormLogin HandleDestroyed
+11:00:14.014 Main start
+11:00:14.040 Before FormLogin ctor
+11:00:14.070 FormLogin ctor start
+11:00:14.233 FormLogin ctor end
+11:00:14.233 After FormLogin ctor
+11:00:14.236 FormLogin HandleCreated
+11:00:14.248 FormLogin Load
+11:00:14.249 FormLogin VisibleChanged=True
+11:00:14.268 FormLogin Shown
+11:00:23.095 FormLogin VisibleChanged=False
+11:03:38.767 FormLogin FormClosed=None
+11:03:38.768 FormLogin HandleDestroyed
+11:03:44.586 Main start
+11:03:44.612 Before FormLogin ctor
+11:03:44.643 FormLogin ctor start
+11:03:44.807 FormLogin ctor end
+11:03:44.808 After FormLogin ctor
+11:03:44.810 FormLogin HandleCreated
+11:03:44.823 FormLogin Load
+11:03:44.824 FormLogin VisibleChanged=True
+11:03:44.844 FormLogin Shown
+11:03:54.720 FormLogin VisibleChanged=False
+11:08:23.041 FormLogin FormClosed=None
+11:08:23.042 FormLogin HandleDestroyed
+11:08:28.031 Main start
+11:08:28.056 Before FormLogin ctor
+11:08:28.085 FormLogin ctor start
+11:08:28.244 FormLogin ctor end
+11:08:28.244 After FormLogin ctor
+11:08:28.247 FormLogin HandleCreated
+11:08:28.259 FormLogin Load
+11:08:28.260 FormLogin VisibleChanged=True
+11:08:28.281 FormLogin Shown
+11:08:37.767 FormLogin VisibleChanged=False
+11:12:01.744 FormLogin FormClosed=None
+11:12:01.745 FormLogin HandleDestroyed
+11:12:06.907 Main start
+11:12:06.932 Before FormLogin ctor
+11:12:06.961 FormLogin ctor start
+11:12:07.124 FormLogin ctor end
+11:12:07.124 After FormLogin ctor
+11:12:07.127 FormLogin HandleCreated
+11:12:07.138 FormLogin Load
+11:12:07.139 FormLogin VisibleChanged=True
+11:12:07.159 FormLogin Shown
+11:12:16.820 FormLogin VisibleChanged=False
+11:13:39.948 FormLogin FormClosed=None
+11:13:39.949 FormLogin HandleDestroyed
+11:15:33.506 Main start
+11:15:33.532 Before FormLogin ctor
+11:15:33.560 FormLogin ctor start
+11:15:33.727 FormLogin ctor end
+11:15:33.728 After FormLogin ctor
+11:15:33.730 FormLogin HandleCreated
+11:15:33.742 FormLogin Load
+11:15:33.742 FormLogin VisibleChanged=True
+11:15:33.762 FormLogin Shown
+11:15:43.837 FormLogin VisibleChanged=False
+11:17:57.605 FormLogin FormClosed=None
+11:17:57.606 FormLogin HandleDestroyed
+11:18:01.151 Main start
+11:18:01.175 Before FormLogin ctor
+11:18:01.204 FormLogin ctor start
+11:18:01.363 FormLogin ctor end
+11:18:01.363 After FormLogin ctor
+11:18:01.366 FormLogin HandleCreated
+11:18:01.377 FormLogin Load
+11:18:01.377 FormLogin VisibleChanged=True
+11:18:01.395 FormLogin Shown
+11:18:12.792 FormLogin VisibleChanged=False
+11:20:14.171 FormLogin FormClosed=None
+11:20:14.172 FormLogin HandleDestroyed
+11:20:19.705 Main start
+11:20:19.730 Before FormLogin ctor
+11:20:19.759 FormLogin ctor start
+11:20:19.918 FormLogin ctor end
+11:20:19.918 After FormLogin ctor
+11:20:19.920 FormLogin HandleCreated
+11:20:19.931 FormLogin Load
+11:20:19.932 FormLogin VisibleChanged=True
+11:20:19.949 FormLogin Shown
+11:20:31.881 FormLogin VisibleChanged=False
+11:26:06.759 FormLogin FormClosed=None
+11:26:06.761 FormLogin HandleDestroyed
+11:26:12.902 Main start
+11:26:12.927 Before FormLogin ctor
+11:26:12.956 FormLogin ctor start
+11:26:13.114 FormLogin ctor end
+11:26:13.115 After FormLogin ctor
+11:26:13.117 FormLogin HandleCreated
+11:26:13.128 FormLogin Load
+11:26:13.129 FormLogin VisibleChanged=True
+11:26:13.146 FormLogin Shown
+11:26:24.458 FormLogin VisibleChanged=False
+11:29:48.099 FormLogin FormClosed=None
+11:29:48.100 FormLogin HandleDestroyed
+11:29:52.532 Main start
+11:29:52.557 Before FormLogin ctor
+11:29:52.585 FormLogin ctor start
+11:29:52.746 FormLogin ctor end
+11:29:52.746 After FormLogin ctor
+11:29:52.749 FormLogin HandleCreated
+11:29:52.760 FormLogin Load
+11:29:52.761 FormLogin VisibleChanged=True
+11:29:52.779 FormLogin Shown
+11:30:11.964 FormLogin VisibleChanged=False
+11:30:31.208 FormLogin FormClosed=None
+11:30:31.209 FormLogin HandleDestroyed

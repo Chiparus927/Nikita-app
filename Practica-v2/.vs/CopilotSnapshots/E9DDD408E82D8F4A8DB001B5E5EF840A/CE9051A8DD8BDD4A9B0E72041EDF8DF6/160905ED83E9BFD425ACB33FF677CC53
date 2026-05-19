@@ -1,0 +1,19 @@
+﻿using System.Configuration;
+using MySql.Data.MySqlClient;
+
+namespace Valcongrup.Data;
+
+public static class DbConnection
+{
+    private static readonly string _connectionString =
+        ConfigurationManager.ConnectionStrings["Valcongrup"]?.ConnectionString
+        ?? throw new InvalidOperationException("Lipsește connection string-ul 'Valcongrup' din App.config.");
+
+    public static MySqlConnection GetConnection()
+    {
+        var conn = new MySqlConnection(_connectionString);
+        conn.Open();
+        return conn;
+    }
+}
+

@@ -1,0 +1,134 @@
+﻿using System.Data;
+using Valcongrup.Services;
+
+namespace Valcongrup.UserControls;
+
+public class UcUserManagement : UserControl
+{
+    private readonly UserApprovalService _approval = new();
+    private readonly DataGridView _grid = ModernUi.Grid();
+    private readonly Label _emptyState = new()
+    {
+        Dock = DockStyle.Fill,
+        Text = "Nu există utilizatori noi de aprobat.",
+        TextAlign = ContentAlignment.MiddleCenter,
+        ForeColor = AppTheme.TextOnLightSecondary,
+        BackColor = Color.Transparent,
+        Font = AppTheme.Font(11f, FontStyle.Regular),
+        Visible = false
+    };
+
+    public UcUserManagement()
+    {
+        BackColor = AppTheme.Shell;
+        Padding   = new Padding(48, 0, 32, 32);
+
+        var refresh = AppTheme.AccentButton("Reîncarcă", 130, 46);
+        refresh.Click += (_, _) => LoadData();
+
+        Controls.Add(BuildTable());
+        Controls.Add(ModernUi.PageHeader(
+            "User Management",
+            "Aprobă conturile noi înainte ca utilizatorii să poată accesa sistemul.",
+            refresh));
+
+        _grid.CellContentClick += Grid_CellContentClick;
+        // Some DataGridView button clicks are delivered as CellClick depending on rendering/style
+        _grid.CellClick += Grid_CellContentClick;
+        LoadData();
+    }
+
+    private Control BuildTable()
+    {
+        var card = new RoundedPanel
+        {
+            Dock = DockStyle.Fill, Radius = 12,
+            BackColor = AppTheme.Card, Padding = new Padding(0),
+            Margin = new Padding(0, 20, 0, 0)
+        };
+        _grid.Dock = DockStyle.Fill;
+
+        // ── Locking flags ──────────────────────────────────────────────────
+        _grid.AllowUserToOrderColumns = false;
+        _grid.AllowUserToResizeColumns = false;
+        _grid.AllowUserToResizeRows   = false;
+        _grid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+        _grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        _grid.RowTemplate.Height = 35;
+        _grid.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+
+        card.Controls.Add(_grid);
+        card.Controls.Add(_emptyState);
+        _emptyState.BringToFront();
+        return card;
+    }
+
+    private void LoadData()
+    {
+        UiFactory.Try(() =>
+        {
+            var table = _approval.GetPendingUsers();
+            // Ensure Companie column exists (may not be in older DB versions)
+            if (!table.Columns.Contains("Companie"))
+                table.Columns.Add("Companie", typeof(string)).DefaultValue = "—";
+
+            void Bind()
+            {
+                _grid.DataSource = null;
+                _grid.Columns.Clear();
+                _grid.AutoGenerateColumns = false;
+
+                _grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "user_id", HeaderText = "ID",           DataPropertyName = "user_id", Visible = false });
+                _grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Nume",    HeaderText = "Nume complet", DataPropertyName = "Nume",    FillWeight = 24, MinimumWidth = 150 });
+                _grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Email",   HeaderText = "Email",        DataPropertyName = "Email",   FillWeight = 28, MinimumWidth = 180 });
+                _grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Telefon", HeaderText = "Telefon",      DataPropertyName = "Telefon", FillWeight = 16, MinimumWidth = 120 });
+                _grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Rol",     HeaderText = "Rol",          DataPropertyName = "Rol",     FillWeight = 14, MinimumWidth = 100 });
+                _grid.Columns.Add(new DataGridViewTextBoxColumn { Name = "Companie",HeaderText = "Companie",     DataPropertyName = "Companie",FillWeight = 18, MinimumWidth = 130 });
+                _grid.Columns.Add(new DataGridViewButtonColumn  { Name = "Approve", HeaderText = "Aprobare",     Text = "✓ Aprobă",   UseColumnTextForButtonValue = true, FillWeight = 10, FlatStyle = FlatStyle.Flat });
+                _grid.Columns.Add(new DataGridViewButtonColumn  { Name = "Reject",  HeaderText = "Respingere",   Text = "✕ Respinge", UseColumnTextForButtonValue = true, FillWeight = 10, FlatStyle = FlatStyle.Flat });
+
+                _grid.DataSource = table;
+                _emptyState.Visible = table.Rows.Count == 0;
+            }
+
+            // Thread-safe cross-thread guard
+            if (InvokeRequired) Invoke(Bind); else Bind();
+        });
+    }
+
+
+    private void Grid_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex < 0) return;
+        if (_grid.Rows[e.RowIndex].Cells["user_id"].Value is not int id) return;
+
+        var colName = _grid.Columns[e.ColumnIndex].Name;
+        if (colName != "Approve" && colName != "Reject") return;
+
+        UiFactory.Try(() =>
+        {
+            bool ok;
+            string msg;
+
+            if (colName == "Approve")
+            {
+                ok  = _approval.ApproveUser(id);
+                msg = ok ? "Utilizator aprobat cu succes." : "Aprobarea a eșuat.";
+            }
+            else
+            {
+                ok  = _approval.RejectUser(id);
+                msg = ok ? "Utilizator respins și șters." : "Respingerea a eșuat.";
+            }
+
+            // Thread-safe UI update
+            void ShowAndReload()
+            {
+                MessageBox.Show(msg, "VALCONGRUP", MessageBoxButtons.OK,
+                    ok ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+                LoadData();
+            }
+            if (InvokeRequired) Invoke(ShowAndReload); else ShowAndReload();
+        });
+    }
+}

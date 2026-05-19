@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Valcongrup.Desktop/Valcongrup.Desktop.csproj" />
+  <Project Path="Valcongrup.Web/Valcongrup.Web.csproj" />
+</Solution>

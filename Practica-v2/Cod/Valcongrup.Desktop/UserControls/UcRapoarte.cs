@@ -1,0 +1,528 @@
+using System.Data;
+using System.Drawing.Drawing2D;
+using ScottPlot;
+using Valcongrup.Data;
+
+namespace Valcongrup.UserControls;
+
+public class UcRapoarte : UserControl
+{
+    private static Color BgWhite  => AppTheme.Card;
+    private static Color BgGray   => AppTheme.CardAlt;
+    private static Color TextDark => AppTheme.TextOnLight;
+    private static Color TextGray => AppTheme.TextOnLightSecondary;
+    private static Color Border   => AppTheme.Border;
+    private static readonly Color Orange   = AppTheme.Accent;
+    private static readonly Color OrangeHv = AppTheme.AccentHover;
+    private static readonly Color Green    = AppTheme.Success;
+    private static readonly Color Yellow   = AppTheme.Warning;
+    private static readonly Color Purple   = Color.FromArgb(168, 85, 247);
+    private static readonly Color Blue     = Color.FromArgb(59, 130, 246);
+
+    private static readonly System.Drawing.Color[] PieColors =
+    {
+        Blue, Green, Orange, Purple, Yellow,
+        Color.FromArgb(239, 68, 68), Color.FromArgb(20, 184, 166)
+    };
+
+    private readonly RapoarteRepository _repo = new();
+    private ScottPlot.FormsPlot _lineChart = null!;
+    private ScottPlot.FormsPlot _pieChart  = null!;
+    private Panel   _lineCover = null!;   // "no data" overlay
+    private Panel   _pieCover  = null!;
+    private DataGridView _grid = null!;
+    private readonly System.Windows.Forms.Timer _lineAnimationTimer = new() { Interval = 45 };
+    private List<EvolutieLunaraRow> _lineAnimationData = new();
+    private int _lineAnimationIndex;
+
+    // KPI labels
+    private Label _kpiConsumat  = null!;
+    private Label _kpiEstimat   = null!;
+    private Label _kpiCategorii = null!;
+    private Label _kpiLuni      = null!;
+
+    // ── constructor ──────────────────────────────────────────────────────
+    public UcRapoarte()
+    {
+        DoubleBuffered = true;
+        BackColor      = BgWhite;
+        BuildLayout();
+        _lineAnimationTimer.Tick += (_, _) => AdvanceLineAnimation();
+        Load += async (_, _) => await LoadDataAsync();
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    //  LAYOUT
+    // ════════════════════════════════════════════════════════════════════
+    private void BuildLayout()
+    {
+        Controls.Clear();
+        Controls.Add(BuildMainSection());
+        Controls.Add(BuildKpiStrip());
+        Controls.Add(BuildHeader());
+    }
+
+    // ── Header ──────────────────────────────────────────────────────────
+    private Panel BuildHeader()
+    {
+        var p = new Panel { Dock = DockStyle.Top, Height = 96, BackColor = BgWhite };
+        p.Paint += (_, e) =>
+        {
+            using var pen = new Pen(Border, 1);
+            e.Graphics.DrawLine(pen, 0, p.Height - 1, p.Width, p.Height - 1);
+        };
+
+        var title = new Label
+        {
+            Text      = "Rapoarte și Statistici",
+            Font      = AppTheme.Font(20f, FontStyle.Bold),
+            ForeColor = TextDark,
+            AutoSize  = true,
+            BackColor = BgWhite,
+            Location  = new Point(40, 18)
+        };
+        var sub = new Label
+        {
+            Text      = "Analizează evoluția bugetelor și distribuția resurselor alocate.",
+            Font      = AppTheme.Font(10f),
+            ForeColor = TextGray,
+            AutoSize  = true,
+            BackColor = BgWhite
+        };
+
+        var btnExcel = MakeButton("+ Export Excel", orange: true, w: 152);
+        var btnPdf   = MakeButton("⬇ Export PDF",  orange: false, w: 144);
+        btnExcel.Click += (_, _) => MessageBox.Show("Export Excel – va fi conectat la generatorul XLSX.", "VALCONGRUP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        btnPdf.Click   += (_, _) => MessageBox.Show("Export PDF – va fi conectat la motorul de raportare.", "VALCONGRUP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        void Place()
+        {
+            title.Location = new Point(40, 16);
+            sub.MaximumSize = new Size(Math.Max(200, p.Width - 450), 0);
+            sub.Location   = new Point(40, title.Bottom + 4);
+            btnExcel.Location = new Point(p.Width - btnExcel.Width - 40, (p.Height - btnExcel.Height) / 2);
+            btnPdf.Location   = new Point(btnExcel.Left - btnPdf.Width - 12, (p.Height - btnPdf.Height) / 2);
+        }
+        p.Resize += (_, _) => Place();
+        p.HandleCreated += (_, _) => Place();
+        p.Controls.AddRange(new Control[] { title, sub, btnPdf, btnExcel });
+        Place();
+        return p;
+    }
+
+    private static Button MakeButton(string text, bool orange, int w)
+    {
+        var b = new Button
+        {
+            Text      = text,
+            Font      = AppTheme.Font(10f, FontStyle.Bold),
+            ForeColor = orange ? Color.White : TextDark,
+            BackColor = orange ? Orange : BgWhite,
+            FlatStyle = FlatStyle.Flat,
+            Size      = new Size(w, 38),
+            Cursor    = Cursors.Hand
+        };
+        b.FlatAppearance.BorderColor = orange ? Orange : Border;
+        b.FlatAppearance.BorderSize  = 1;
+        if (orange) { b.MouseEnter += (_, _) => b.BackColor = OrangeHv; b.MouseLeave += (_, _) => b.BackColor = Orange; }
+        return b;
+    }
+
+    // ── KPI strip ───────────────────────────────────────────────────────
+    private FlowLayoutPanel BuildKpiStrip()
+    {
+        var strip = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Top, Height = 110,
+            BackColor = Color.Transparent,
+            Padding = new Padding(40, 16, 40, 0),
+            WrapContents = false
+        };
+
+        KpiCard(strip, "Buget Consumat", "...", "MDL total",          Orange,  out _kpiConsumat);
+        KpiCard(strip, "Buget Estimat",  "...", "MDL planificat",      Blue,    out _kpiEstimat);
+        KpiCard(strip, "Categorii",      "...", "tipuri de cheltuieli", Purple,  out _kpiCategorii);
+        KpiCard(strip, "Luni raportate", "...", "cu tranzacții",        Green,   out _kpiLuni);
+
+        strip.Resize += (_, _) =>
+        {
+            var w = Math.Max(210, (strip.ClientSize.Width - strip.Padding.Left - strip.Padding.Right - 60) / 4);
+            foreach (Panel c in strip.Controls.OfType<Panel>()) { c.Width = w; c.Height = 82; }
+        };
+        return strip;
+    }
+
+    private static void KpiCard(Control parent, string label, string value, string sub, Color accent, out Label outVal)
+    {
+        var card = new Panel { Width = 250, Height = 82, BackColor = BgWhite, Margin = new Padding(0, 0, 18, 0) };
+        var hov  = false;
+        card.MouseEnter += (_, _) => { hov = true;  card.Invalidate(); };
+        card.MouseLeave += (_, _) => { hov = false; card.Invalidate(); };
+        card.Paint += (_, e) =>
+        {
+            if (card.Width <= 2 || card.Height <= 2) return;
+            AppTheme.ApplyHighQualityGraphics(e.Graphics);
+            using var sp = Rounded(new Rectangle(0, 2, card.Width - 1, card.Height - 1), 10);
+            using var sb = new SolidBrush(Color.FromArgb(hov ? 22 : 10, 0, 0, 0));
+            e.Graphics.FillPath(sb, sp);
+            using var bp = Rounded(new Rectangle(0, 0, card.Width - 1, card.Height - 3), 10);
+            using var cardFill = new SolidBrush(BgWhite);
+            e.Graphics.FillPath(cardFill, bp);
+            using var pen = new Pen(Border, 1);
+            e.Graphics.DrawPath(pen, bp);
+            using var stripe = new SolidBrush(accent);
+            e.Graphics.FillRectangle(stripe, 0, 14, 4, card.Height - 28);
+        };
+
+        var valLbl = new Label { Text = value, Font = AppTheme.Font(18f, FontStyle.Bold), ForeColor = TextDark, Location = new Point(16, 10), AutoSize = false, Height = 34, BackColor = BgWhite };
+        var capLbl = new Label { Text = label,  Font = AppTheme.Font(9f,  FontStyle.Bold), ForeColor = TextGray, Location = new Point(16, 44), AutoSize = true, BackColor = BgWhite };
+        var subLbl = new Label { Text = sub,    Font = AppTheme.Font(8.5f),               ForeColor = Color.FromArgb(160, 107, 114, 128), AutoSize = true, BackColor = BgWhite };
+        card.Resize += (_, _) => { valLbl.Width = card.Width - 24; subLbl.Location = new Point(16, 58); };
+        outVal = valLbl;
+        card.Controls.AddRange(new Control[] { valLbl, capLbl, subLbl });
+        parent.Controls.Add(card);
+    }
+
+    // ── Main section ────────────────────────────────────────────────────
+    private Control BuildMainSection()
+    {
+        var outer = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 2,
+            BackColor = Color.Transparent,
+            Padding = new Padding(40, 14, 40, 32)
+        };
+        outer.RowStyles.Add(new RowStyle(SizeType.Percent, 58f));
+        outer.RowStyles.Add(new RowStyle(SizeType.Percent, 42f));
+
+        var charts = BuildChartsRow();
+        var table  = BuildTablePanel();
+        table.Margin = new Padding(0, 16, 0, 0);
+
+        outer.Controls.Add(charts, 0, 0);
+        outer.Controls.Add(table,  0, 1);
+        return outer;
+    }
+
+    // ── Charts row ──────────────────────────────────────────────────────
+    private Control BuildChartsRow()
+    {
+        var row = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 1,
+            BackColor = Color.Transparent
+        };
+        row.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63f));
+        row.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37f));
+
+        row.Controls.Add(BuildLinePanel(),  0, 0);
+        row.Controls.Add(BuildDonutPanel(), 1, 0);
+        return row;
+    }
+
+    // ── Line chart container ─────────────────────────────────────────────
+    private Panel BuildLinePanel()
+    {
+        var outer = new Panel { Dock = DockStyle.Fill, BackColor = BgWhite, Margin = new Padding(0, 0, 14, 0) };
+        outer.Paint += (_, e) => DrawCard(e, outer);
+
+        var titleLbl = new Label { Text = "Evoluție Buget", Font = AppTheme.Font(13f, FontStyle.Bold), ForeColor = TextDark, BackColor = BgWhite, AutoSize = true, Location = new Point(20, 16) };
+        var subLbl   = new Label { Text = "Buget consumat vs. estimat pe luni (MDL)", Font = AppTheme.Font(9.5f), ForeColor = TextGray, BackColor = BgWhite, AutoSize = true };
+
+        _lineChart = new ScottPlot.FormsPlot { Dock = DockStyle.Fill, BackColor = BgWhite };
+        StyleLinePlot(_lineChart.Plot);
+
+        _lineCover = MakeEmptyCover("Nu există date disponibile pentru perioada selectată");
+
+        var inner = new Panel { Dock = DockStyle.Fill, BackColor = BgWhite, Padding = new Padding(8, 60, 8, 8) };
+        inner.Controls.Add(_lineCover);
+        inner.Controls.Add(_lineChart);
+
+        void PlaceSub() => subLbl.Location = new Point(20, titleLbl.Bottom + 2);
+        titleLbl.SizeChanged += (_, _) => PlaceSub();
+        PlaceSub();
+
+        outer.Controls.Add(inner);
+        outer.Controls.Add(subLbl);
+        outer.Controls.Add(titleLbl);
+        return outer;
+    }
+
+    // ── Donut chart container ────────────────────────────────────────────
+    private Panel BuildDonutPanel()
+    {
+        var outer = new Panel { Dock = DockStyle.Fill, BackColor = BgWhite, Margin = new Padding(2, 0, 0, 0) };
+        outer.Paint += (_, e) => DrawCard(e, outer);
+
+        var titleLbl = new Label { Text = "Distribuție Resurse", Font = AppTheme.Font(13f, FontStyle.Bold), ForeColor = TextDark, BackColor = BgWhite, AutoSize = true, Location = new Point(20, 16) };
+        var subLbl   = new Label { Text = "Alocarea pe categorii (%)", Font = AppTheme.Font(9.5f), ForeColor = TextGray, BackColor = BgWhite, AutoSize = true };
+
+        _pieChart = new ScottPlot.FormsPlot { Dock = DockStyle.Fill, BackColor = BgWhite };
+        StylePiePlot(_pieChart.Plot);
+
+        _pieCover = MakeEmptyCover("Nu există date disponibile pentru perioada selectată");
+
+        var inner = new Panel { Dock = DockStyle.Fill, BackColor = BgWhite, Padding = new Padding(8, 60, 8, 8) };
+        inner.Controls.Add(_pieCover);
+        inner.Controls.Add(_pieChart);
+
+        void PlaceSub() => subLbl.Location = new Point(20, titleLbl.Bottom + 2);
+        titleLbl.SizeChanged += (_, _) => PlaceSub();
+        PlaceSub();
+
+        outer.Controls.Add(inner);
+        outer.Controls.Add(subLbl);
+        outer.Controls.Add(titleLbl);
+        return outer;
+    }
+
+    // ── Table panel ──────────────────────────────────────────────────────
+    private Panel BuildTablePanel()
+    {
+        var panel = new Panel { Dock = DockStyle.Fill, BackColor = BgWhite };
+        panel.Paint += (_, e) => DrawCard(e, panel);
+
+        var hdr = new Panel { Dock = DockStyle.Top, Height = 52, BackColor = BgWhite };
+        hdr.Paint += (_, e) => { using var pen = new Pen(Border, 1); e.Graphics.DrawLine(pen, 0, hdr.Height - 1, hdr.Width, hdr.Height - 1); };
+        hdr.Controls.Add(new Label { Text = "Distribuție pe categorii de buget", Font = AppTheme.Font(13f, FontStyle.Bold), ForeColor = TextDark, BackColor = BgWhite, AutoSize = true, Location = new Point(20, 14) });
+
+        _grid = ModernUi.Grid();
+        _grid.Top  = 52;
+        _grid.RowTemplate.Height  = 42;
+        _grid.ColumnHeadersHeight = 42;
+        _grid.AutoGenerateColumns = false;
+        _grid.Columns.Clear();
+        _grid.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Categorie",   DataPropertyName = "Categorie",  FillWeight = 38, MinimumWidth = 150 });
+        _grid.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Total (MDL)", DataPropertyName = "Total",      FillWeight = 26, MinimumWidth = 120 });
+        _grid.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Pondere (%)", DataPropertyName = "Pondere",    FillWeight = 22, MinimumWidth = 100 });
+        _grid.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Tranzacții",  DataPropertyName = "Tranzactii", FillWeight = 14, MinimumWidth = 80  });
+
+        panel.Controls.Add(_grid);
+        panel.Controls.Add(hdr);
+        return panel;
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    //  DATA LOADING
+    // ════════════════════════════════════════════════════════════════════
+    private async Task LoadDataAsync()
+    {
+        try
+        {
+            var (lineData, pieData) = await Task.Run(() =>
+                (_repo.GetEvolutieComparativa(), _repo.GetDistributieFull()));
+
+            SafeInvoke(() =>
+            {
+                StartLineAnimation(lineData);
+                BindPieChart(pieData);
+                BindTable(pieData);
+                BindKpis(lineData, pieData);
+            });
+        }
+        catch { /* graceful fallback – charts remain empty */ }
+    }
+
+    private void BindLineChart(List<EvolutieLunaraRow> data)
+    {
+        var plt = _lineChart.Plot;
+        plt.Clear();
+        StyleLinePlot(plt);
+
+        if (data.Count == 0) { _lineCover.Visible = true; _lineChart.Refresh(); return; }
+        _lineCover.Visible = false;
+
+        var xs       = Enumerable.Range(0, data.Count).Select(i => (double)i).ToArray();
+        var yConsume = data.Select(r => (double)r.Consumat).ToArray();
+        var yEstimat = data.Select(r => (double)r.Estimat).ToArray();
+        var labels   = data.Select(r => r.Label).ToArray();
+
+        var series1 = plt.AddScatter(xs, yConsume, color: Orange, lineWidth: 2.8f, markerSize: 7f);
+        series1.Label = "Buget Consumat";
+        series1.MarkerShape = ScottPlot.MarkerShape.filledCircle;
+
+        var series2 = plt.AddScatter(xs, yEstimat, color: Color.FromArgb(180, 180, 200), lineWidth: 2f, markerSize: 5f);
+        series2.Label = "Buget Estimat";
+        series2.LineStyle = ScottPlot.LineStyle.Dash;
+        series2.MarkerShape = ScottPlot.MarkerShape.openCircle;
+
+        plt.XTicks(xs, labels);
+        plt.Legend(true, ScottPlot.Alignment.UpperLeft);
+        plt.YAxis.Label("MDL", color: Color.FromArgb(226, 232, 240), size: 10f);
+
+        _lineChart.Refresh();
+    }
+
+    private void BindPieChart(List<CategorieRow> data)
+    {
+        var plt = _pieChart.Plot;
+        plt.Clear();
+        StylePiePlot(plt);
+
+        if (data.Count == 0) { _pieCover.Visible = true; _pieChart.Refresh(); return; }
+        _pieCover.Visible = false;
+
+        var values = data.Select(r => (double)r.Total).ToArray();
+        var sliceLabels = data.Select(r => r.Nume).ToArray();
+        var colors = PieColors.Take(data.Count).Concat(PieColors).Take(data.Count).ToArray();
+
+        var pie = plt.AddPie(values);
+        pie.SliceLabels     = sliceLabels;
+        pie.DonutSize       = 0.55;
+        pie.SliceFillColors = colors;
+        pie.ShowLabels      = false;
+        pie.ShowPercentages = true;
+        pie.SliceFont.Size  = 9f;
+        pie.SliceFont.Color = Color.White;
+
+        plt.Legend(true, ScottPlot.Alignment.LowerRight);
+
+        _pieChart.Refresh();
+    }
+
+    private void BindTable(List<CategorieRow> data)
+    {
+        decimal total = data.Sum(r => r.Total);
+        var dt = new DataTable();
+        dt.Columns.Add("Categorie");
+        dt.Columns.Add("Total");
+        dt.Columns.Add("Pondere");
+        dt.Columns.Add("Tranzactii");
+        foreach (var r in data)
+        {
+            var pct = total > 0 ? r.Total / total * 100 : 0;
+            dt.Rows.Add(r.Nume, $"{r.Total:N0} MDL", $"{pct:0.#}%", r.NrTranzactii);
+        }
+        _grid.DataSource = dt;
+    }
+
+    private void BindKpis(List<EvolutieLunaraRow> line, List<CategorieRow> pie)
+    {
+        var consumat = line.Sum(r => r.Consumat);
+        var estimat  = line.Sum(r => r.Estimat);
+        _kpiConsumat.Text  = FormatMdl(consumat);
+        _kpiEstimat.Text   = FormatMdl(estimat);
+        _kpiCategorii.Text = pie.Count.ToString();
+        _kpiLuni.Text      = line.Count.ToString();
+    }
+
+    private void StartLineAnimation(List<EvolutieLunaraRow> data)
+    {
+        _lineAnimationTimer.Stop();
+        _lineAnimationData = data;
+        _lineAnimationIndex = Math.Min(1, data.Count);
+
+        if (data.Count <= 1)
+        {
+            BindLineChart(data);
+            return;
+        }
+
+        BindLineChart(data.Take(_lineAnimationIndex).ToList());
+        _lineAnimationTimer.Start();
+    }
+
+    private void AdvanceLineAnimation()
+    {
+        if (_lineAnimationData.Count == 0)
+        {
+            _lineAnimationTimer.Stop();
+            return;
+        }
+
+        _lineAnimationIndex++;
+        if (_lineAnimationIndex >= _lineAnimationData.Count)
+        {
+            _lineAnimationIndex = _lineAnimationData.Count;
+            _lineAnimationTimer.Stop();
+        }
+
+        BindLineChart(_lineAnimationData.Take(_lineAnimationIndex).ToList());
+    }
+
+    private void SafeInvoke(Action a)
+    {
+        if (IsDisposed || !IsHandleCreated)
+            return;
+
+        if (InvokeRequired)
+            BeginInvoke(a);
+        else
+            a();
+    }
+
+    private static string FormatMdl(decimal v) =>
+        v >= 1_000_000 ? $"{v / 1_000_000:0.##}M" :
+        v >= 1_000     ? $"{v / 1_000:0.#}k"       : $"{v:0}";
+
+    // ════════════════════════════════════════════════════════════════════
+    //  STYLING HELPERS
+    // ════════════════════════════════════════════════════════════════════
+    private static void StyleLinePlot(Plot plt)
+    {
+        plt.Style(
+            figureBackground: Color.FromArgb(15, 23, 42),
+            dataBackground:   Color.FromArgb(30, 41, 59),
+            grid:             Color.FromArgb(100, 116, 139),
+            tick:             Color.FromArgb(226, 232, 240),
+            axisLabel:        Color.FromArgb(248, 250, 252),
+            titleLabel:       Color.FromArgb(248, 250, 252)
+        );
+        plt.XAxis.TickLabelStyle(fontName: "Segoe UI", fontSize: 10.5f, color: Color.FromArgb(226, 232, 240));
+        plt.YAxis.TickLabelStyle(fontName: "Segoe UI", fontSize: 10.5f, color: Color.FromArgb(226, 232, 240));
+        plt.Grid(color: Color.FromArgb(100, 116, 139), lineStyle: ScottPlot.LineStyle.Dot);
+        plt.Frameless();
+        plt.Margins(x: 0.04, y: 0.12);
+    }
+
+    private static void StylePiePlot(Plot plt)
+    {
+        plt.Style(
+            figureBackground: Color.FromArgb(15, 23, 42),
+            dataBackground:   Color.FromArgb(30, 41, 59),
+            tick:             Color.FromArgb(226, 232, 240),
+            axisLabel:        Color.FromArgb(248, 250, 252),
+            titleLabel:       Color.FromArgb(248, 250, 252)
+        );
+        plt.Frameless();
+        plt.Grid(false);
+    }
+
+    private static Panel MakeEmptyCover(string message)
+    {
+        var p = new Panel { Dock = DockStyle.Fill, BackColor = BgGray, Visible = false };
+        p.Controls.Add(new Label
+        {
+            Text      = message,
+            Font      = AppTheme.Font(10.5f, FontStyle.Italic),
+            ForeColor = TextGray,
+            Dock      = DockStyle.Fill,
+            TextAlign = ContentAlignment.MiddleCenter,
+            BackColor = Color.Transparent
+        });
+        return p;
+    }
+
+    private static void DrawCard(PaintEventArgs e, Panel p)
+    {
+        if (p.Width <= 2 || p.Height <= 2) return;
+        AppTheme.ApplyHighQualityGraphics(e.Graphics);
+        using var path = Rounded(new Rectangle(0, 0, p.Width - 1, p.Height - 1), 12);
+        using var fill = new SolidBrush(BgWhite);
+        e.Graphics.FillPath(fill, path);
+        using var pen = new Pen(Border, 1);
+        e.Graphics.DrawPath(pen, path);
+    }
+
+    private static GraphicsPath Rounded(Rectangle r, int radius)
+    {
+        var d = Math.Max(2, Math.Min(radius * 2, Math.Min(r.Width, r.Height)));
+        var p = new GraphicsPath();
+        p.AddArc(r.X,          r.Y,          d, d, 180, 90);
+        p.AddArc(r.Right - d,  r.Y,          d, d, 270, 90);
+        p.AddArc(r.Right - d,  r.Bottom - d, d, d, 0,   90);
+        p.AddArc(r.X,          r.Bottom - d, d, d, 90,  90);
+        p.CloseFigure();
+        return p;
+    }
+}

@@ -1,0 +1,498 @@
+﻿using System.Data;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
+using Valcongrup.Data;
+using Valcongrup.Helpers;
+
+namespace Valcongrup.Forms;
+
+public class FormRegister : Form
+{
+    // ── Fields ────────────────────────────────────────────────────────────────
+    private readonly TextBox _nume     = AppTheme.TextBox();
+    private readonly TextBox _prenume  = AppTheme.TextBox();
+    private readonly TextBox _email    = AppTheme.TextBox();
+    private readonly TextBox _companie = AppTheme.TextBox();
+    private readonly TextBox _telefon  = AppTheme.TextBox();
+    private readonly TextBox _parola   = AppTheme.TextBox();
+    private readonly TextBox _confirma = AppTheme.TextBox();
+    private readonly ComboBox _rol     = AppTheme.Combo();
+
+    private readonly Label _error = new()
+    {
+        ForeColor = AppTheme.Danger, AutoSize = false,
+        Height = 38, BackColor = Color.White,
+        TextAlign = ContentAlignment.MiddleCenter
+    };
+
+    private Panel _numeBox    = null!;
+    private Panel _prenumeBox = null!;
+    private Panel _emailBox   = null!;
+    private Panel _companieBox= null!;
+    private Label _companieLabel = null!;
+    private Label _rolLabel = null!;
+    private Label _tipLabel = null!;
+    private Panel _telefonBox = null!;
+    private Panel _parolaBox  = null!;
+    private Panel _confirmaBox= null!;
+    private Button _createButton = null!;
+    private LinkLabel _backLink = null!;
+
+    private readonly PasswordStrengthBar _passwordStrengthBar = new() { Size = new Size(374, 8) };
+    private readonly Label _passwordHint = new()
+    {
+        Text = "Minim 8 caractere, o litera mare si un caracter special",
+        ForeColor = Color.FromArgb(110, 118, 136),
+        AutoSize = false, Size = new Size(374, 18),
+        BackColor = Color.White, Font = AppTheme.Font(8f)
+    };
+
+    // Legal-status selector
+    private readonly ComboBox _cmbTipEntitate = new()
+    {
+        DropDownStyle = ComboBoxStyle.DropDownList,
+        FlatStyle     = FlatStyle.Flat,
+        Font          = AppTheme.Font(10f),
+        Width         = 200,
+        Height        = 30
+    };
+
+    // Layout constants
+    private const int FieldX     = 103;
+    private const int FieldWidth  = 374;
+    private const int HalfWidth   = 180;
+
+    // ── Constructor ───────────────────────────────────────────────────────────
+    public FormRegister()
+    {
+        Text             = "VALCONGRUP Register";
+        AutoScaleMode    = AutoScaleMode.Dpi;
+        Size             = new Size(1500, 900);
+        StartPosition    = FormStartPosition.CenterScreen;
+        FormBorderStyle  = FormBorderStyle.None;
+        BackColor        = Color.White;
+        DoubleBuffered   = true;
+        KeyPreview       = true;
+        KeyDown         += (_, e) => { if (e.KeyCode == Keys.Escape) Close(); };
+        SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
+
+        var left  = new BufferedPanel { Dock = DockStyle.Left, Width = 580, BackColor = Color.White };
+        var right = new RegisterHeroPanel { Dock = DockStyle.Fill, BackColor = Color.Black };
+        Controls.Add(right);
+        Controls.Add(left);
+
+        // ── Brand title ──────────────────────────────────────────────────────
+        var title = new Label
+        {
+            Text = "VALCONGRUP", Font = AppTheme.Font(28f, FontStyle.Bold),
+            ForeColor = Color.Black, AutoSize = true, BackColor = Color.White,
+            Anchor = AnchorStyles.Top
+        };
+        left.Controls.Add(title);
+
+        // Accent dot — anchored relative to title and kept aligned during resize
+        var accent = new Panel { BackColor = AppTheme.Accent, Size = new Size(11, 11), Anchor = AnchorStyles.Top };
+        left.Controls.Add(accent);
+        accent.BringToFront();
+
+        var subtitle = new Label
+        {
+            Text = "Create your account", ForeColor = Color.FromArgb(35, 45, 55),
+            Font = AppTheme.Font(14f, FontStyle.Bold), AutoSize = true, BackColor = Color.White,
+            Anchor = AnchorStyles.Top
+        };
+        left.Controls.Add(subtitle);
+
+        void PositionHeader()
+        {
+            title.Location = new Point((left.ClientSize.Width - title.PreferredWidth) / 2, 52);
+            subtitle.Location = new Point((left.ClientSize.Width - subtitle.PreferredWidth) / 2, 110);
+            accent.Location = new Point(title.Right - 13, title.Top + 4);
+        }
+
+        left.Resize += (_, _) => PositionHeader();
+        title.SizeChanged += (_, _) => PositionHeader();
+        subtitle.SizeChanged += (_, _) => PositionHeader();
+        Load += (_, _) => PositionHeader();
+        PositionHeader();
+
+        // ── Legal-status ComboBox ─────────────────────────────────────────────
+        _tipLabel = new Label
+        {
+            Text = "Tip persoană", Location = new Point(FieldX, 152),
+            AutoSize = true, ForeColor = Color.FromArgb(20, 28, 36),
+            BackColor = Color.White, Font = AppTheme.Font(9f)
+        };
+        _cmbTipEntitate.Items.AddRange(new object[] { "Persoană Fizică", "Persoană Juridică" });
+        _cmbTipEntitate.SelectedIndex = 0;
+        _cmbTipEntitate.Location      = new Point(FieldX, 174);
+        left.Controls.AddRange(new Control[] { _tipLabel, _cmbTipEntitate });
+
+        _cmbTipEntitate.SelectedIndexChanged += (_, _) => ApplyLegalTypeVisibility(left);
+
+        // ── Input fields ─────────────────────────────────────────────────────
+        _parola.UseSystemPasswordChar  = true;
+        _confirma.UseSystemPasswordChar = true;
+        _rol.Items.Add("Se incarca...");
+        _rol.SelectedIndex = 0;
+        _rol.Enabled       = false;
+
+        _numeBox     = AddField(left, "Nume",            _nume,     FieldX,           200, HalfWidth);
+        _prenumeBox  = AddField(left, "Prenume",         _prenume,  FieldX + 194,     200, HalfWidth);
+        _emailBox    = AddField(left, "Email",           _email,    FieldX,           280, FieldWidth);
+
+        // Company fields (conditional)
+        _companieLabel = new Label
+        {
+            Text = "Nume Companie", Location = new Point(FieldX, 336),
+            AutoSize = true, ForeColor = Color.FromArgb(20, 28, 36),
+            BackColor = Color.White, Font = AppTheme.Font(9f), Visible = false
+        };
+        _companieBox = new Panel
+        {
+            Size = new Size(FieldWidth, 48), Location = new Point(FieldX, 360),
+            BackColor = Color.White, Padding = new Padding(10, 13, 10, 8),
+            BorderStyle = BorderStyle.FixedSingle, Visible = false
+        };
+        _companie.Dock = DockStyle.Fill;
+        _companieBox.Controls.Add(_companie);
+        left.Controls.Add(_companieLabel);
+        left.Controls.Add(_companieBox);
+
+        // Fields below company (positions shift when company visible)
+        _telefonBox  = AddField(left, "Telefon",         _telefon,  FieldX,           360, HalfWidth);
+        _rolLabel    = AddCombo(left, "Rol",             _rol,      FieldX + 194,     360, HalfWidth);
+        _parolaBox   = AddField(left, "Parola",          _parola,   FieldX,           440, HalfWidth);
+        _confirmaBox = AddField(left, "Confirma parola", _confirma, FieldX + 194,     440, HalfWidth);
+
+        _passwordStrengthBar.Location = new Point(FieldX, 496);
+        _passwordHint.Location        = new Point(FieldX, 504);
+        left.Controls.Add(_passwordStrengthBar);
+        left.Controls.Add(_passwordHint);
+        _parola.TextChanged += (_, _) => UpdatePasswordStrength();
+        UpdatePasswordStrength();
+
+        _error.Location = new Point(FieldX, 528);
+        _error.Width    = FieldWidth;
+        left.Controls.Add(_error);
+
+        _createButton = AppTheme.PrimaryButton("Create account", FieldWidth, 52);
+        _createButton.Font     = AppTheme.Font(11.5f, FontStyle.Bold);
+        _createButton.Location = new Point(FieldX, 580);
+        _createButton.Click   += (_, _) => Register();
+        // disable until roles are successfully loaded from the database
+        _createButton.Enabled = false;
+        left.Controls.Add(_createButton);
+
+        _backLink = new LinkLabel
+        {
+            Text = "Already have an account? Log in",
+            LinkColor = Color.FromArgb(28, 82, 155), ActiveLinkColor = AppTheme.Accent,
+            VisitedLinkColor = Color.FromArgb(28, 82, 155),
+            Location = new Point(FieldX, 652),
+            Size = new Size(FieldWidth, 28),
+            TextAlign = ContentAlignment.MiddleCenter,
+            BackColor = Color.White, Font = AppTheme.Font(9.5f)
+        };
+        _backLink.Click += (_, _) => Close();
+        left.Controls.Add(_backLink);
+        left.Resize += (_, _) => RepositionRegisterControls();
+
+        var close = new Button
+        {
+            Text = "X", ForeColor = Color.White, BackColor = Color.Transparent,
+            FlatStyle = FlatStyle.Flat, Size = new Size(36, 32),
+            Anchor = AnchorStyles.Top | AnchorStyles.Right
+        };
+        close.FlatAppearance.BorderSize = 0;
+        close.Click += (_, _) => Close();
+        right.Controls.Add(close);
+        right.Resize += (_, _) => close.Location = new Point(right.ClientSize.Width - close.Width - 16, 16);
+        Load         += (_, _) => close.Location = new Point(right.ClientSize.Width - close.Width - 16, 16);
+        close.BringToFront();
+
+        AcceptButton = _createButton;
+        CancelButton = close;
+        Shown += async (_, _) => await LoadRolesAsync();
+        RepositionRegisterControls();
+    }
+
+    // ── Legal type toggle ─────────────────────────────────────────────────────
+    private void ApplyLegalTypeVisibility(Control left)
+    {
+        bool juridic = _cmbTipEntitate.SelectedIndex == 1;
+        _companieLabel.Visible = juridic;
+        _companieBox.Visible   = juridic;
+        RepositionRegisterControls();
+    }
+
+    // ── Async role loading ────────────────────────────────────────────────────
+    private async Task LoadRolesAsync()
+    {
+        try
+        {
+            var table = await Task.Run(() => new UtilizatoriRepository().GetPublicRoluriTable());
+            _rol.Items.Clear();
+            _rol.DataSource    = table;
+            _rol.DisplayMember = "nume";
+            _rol.ValueMember   = "id";
+            _rol.Enabled       = true;
+            _createButton.Enabled = true;
+            var defaultId = table.Rows.Count > 0 ? Convert.ToInt32(table.Rows[0]["id"]) : 0;
+            if (defaultId > 0) _rol.SelectedValue = defaultId;
+            else if (_rol.Items.Count > 0) _rol.SelectedIndex = 0;
+        }
+        catch (Exception ex)
+        {
+            // Map common DB errors to friendlier messages and log full exception.
+            var friendly = "Roluri indisponibile: verifica conexiunea la baza de date.";
+            try
+            {
+                if (ex is MySql.Data.MySqlClient.MySqlException mex)
+                {
+                    // 1045 = access denied (authentication), 0 = cannot connect / network
+                    friendly = mex.Number switch
+                    {
+                        1045 => "Roluri indisponibile: autentificare eșuată la baza de date (verifică user/parola).",
+                        0    => "Roluri indisponibile: nu se poate contacta serverul bazei de date (verifică host/port).",
+                        _    => friendly
+                    };
+                }
+            }
+            catch { }
+
+            ShowError(friendly);
+            try { CrashLogger.Log(ex, "FormRegister.LoadRolesAsync"); } catch { }
+        }
+    }
+
+    // ── Field helpers ─────────────────────────────────────────────────────────
+    private static Panel AddField(Control parent, string label, TextBox tb, int x, int y, int width)
+    {
+        var lbl = new Label { Text = label, Location = new Point(x, y - 24), AutoSize = true, ForeColor = Color.FromArgb(20, 28, 36), BackColor = Color.White, Font = AppTheme.Font(9f) };
+        parent.Controls.Add(lbl);
+        var p = new Panel { Size = new Size(width, 48), Location = new Point(x, y), BackColor = Color.White, Padding = new Padding(10, 13, 10, 8), BorderStyle = BorderStyle.FixedSingle, Tag = lbl };
+        tb.Dock = DockStyle.Fill;
+        p.Controls.Add(tb);
+        parent.Controls.Add(p);
+        return p;
+    }
+
+    private static Label AddCombo(Control parent, string label, ComboBox combo, int x, int y, int width)
+    {
+        var lbl = new Label { Text = label, Location = new Point(x, y - 24), AutoSize = true, ForeColor = Color.FromArgb(20, 28, 36), BackColor = Color.White, Font = AppTheme.Font(9f) };
+        combo.Location = new Point(x, y);
+        combo.Size     = new Size(width, 48);
+        parent.Controls.Add(lbl);
+        parent.Controls.Add(combo);
+        return lbl;
+    }
+
+    // ── Registration logic ────────────────────────────────────────────────────
+    private void Register()
+    {
+        if (string.IsNullOrWhiteSpace(_nume.Text) || string.IsNullOrWhiteSpace(_prenume.Text) ||
+            string.IsNullOrWhiteSpace(_email.Text) || string.IsNullOrWhiteSpace(_parola.Text))
+        {
+            ShowError("Completeaza campurile obligatorii.");
+            if (string.IsNullOrWhiteSpace(_nume.Text))    AppTheme.MarkInvalid(_numeBox);
+            if (string.IsNullOrWhiteSpace(_prenume.Text)) AppTheme.MarkInvalid(_prenumeBox);
+            if (string.IsNullOrWhiteSpace(_email.Text))   AppTheme.MarkInvalid(_emailBox);
+            if (string.IsNullOrWhiteSpace(_parola.Text))  AppTheme.MarkInvalid(_parolaBox);
+            return;
+        }
+
+        if (_cmbTipEntitate.SelectedIndex == 1 && string.IsNullOrWhiteSpace(_companie.Text))
+        {
+            ShowError("Introduceți numele companiei pentru Persoană Juridică.");
+            AppTheme.MarkInvalid(_companieBox);
+            return;
+        }
+        if (!IsValidEmail(_email.Text)) { ShowError("Email invalid. Foloseste un email real, ex: nume@gmail.com."); AppTheme.MarkInvalid(_emailBox); return; }
+        if (!IsValidPhone(_telefon.Text)) { ShowError("Telefonul trebuie sa fie in format +373 urmat de 8 cifre."); AppTheme.MarkInvalid(_telefonBox); return; }
+        if (!IsStrongPassword(_parola.Text)) { ShowError("Parola trebuie sa aiba minim 8 caractere, o litera mare si un caracter special."); AppTheme.MarkInvalid(_parolaBox); return; }
+        if (_parola.Text != _confirma.Text) { ShowError("Parolele nu coincid."); AppTheme.MarkInvalid(_parolaBox); AppTheme.MarkInvalid(_confirmaBox); return; }
+        if (_rol.SelectedValue == null) { ShowError("Alege un rol."); AppTheme.MarkInvalid(_rol); return; }
+
+        var repo = new UtilizatoriRepository();
+        if (repo.ExistsByEmail(_email.Text)) { ShowError("Email deja folosit."); AppTheme.MarkInvalid(_emailBox); return; }
+        if (repo.ExistsByTelefon(_telefon.Text.Trim())) { ShowError("Telefon deja folosit."); AppTheme.MarkInvalid(_telefonBox); return; }
+
+        try
+        {
+            var user = new Models.Utilizator
+            {
+                Nume         = _nume.Text.Trim(),
+                Prenume      = _prenume.Text.Trim(),
+                Email        = _email.Text.Trim(),
+                Telefon      = _telefon.Text.Trim(),
+                IdRol        = Convert.ToInt32(_rol.SelectedValue),
+                Activ        = true,
+                IsApproved   = false,
+                NumeCompanie = _cmbTipEntitate.SelectedIndex == 1 ? _companie.Text.Trim() : string.Empty
+            };
+            repo.RegisterPublic(user, PasswordHelper.Hash(_parola.Text));
+            var isClient = repo.IsClientRole(user.IdRol);
+            MessageBox.Show(
+                isClient
+                    ? "Cont de client creat cu succes. Te poti autentifica imediat."
+                    : "Cont creat cu succes. Asteapta aprobarea unui administrator inainte de autentificare.",
+                "VALCONGRUP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Close();
+        }
+        catch (UnauthorizedAccessException) { ShowError("Unauthorized: rolul Admin nu poate fi solicitat la inregistrare."); }
+        catch (Exception ex) { ShowError("Eroare creare cont: " + ex.Message); }
+    }
+
+    // ── Validators ────────────────────────────────────────────────────────────
+    private static bool IsValidPhone(string phone)     => Regex.IsMatch(phone.Trim(), @"^\+373\d{8}$");
+    private static bool IsStrongPassword(string pwd)   => pwd.Length >= 8 && pwd.Any(char.IsUpper) && pwd.Any(ch => !char.IsLetterOrDigit(ch));
+
+    private void RepositionRegisterControls()
+    {
+        if (_tipLabel == null || _numeBox == null || _prenumeBox == null || _emailBox == null || _telefonBox == null || _rol == null || _rolLabel == null || _parolaBox == null || _confirmaBox == null)
+            return;
+
+        _tipLabel.Location = new Point(FieldX, 152);
+        _cmbTipEntitate.Location = new Point(FieldX, 174);
+
+        _numeBox.Location = new Point(FieldX, 200);
+        if (_numeBox.Tag is Label numeLabel) numeLabel.Location = new Point(FieldX, 176);
+
+        _prenumeBox.Location = new Point(FieldX + 194, 200);
+        if (_prenumeBox.Tag is Label prenumeLabel) prenumeLabel.Location = new Point(FieldX + 194, 176);
+
+        _emailBox.Location = new Point(FieldX, 280);
+        if (_emailBox.Tag is Label emailLabel) emailLabel.Location = new Point(FieldX, 256);
+
+        if (_cmbTipEntitate.SelectedIndex == 1)
+        {
+            _companieLabel.Location = new Point(FieldX, 336);
+            _companieBox.Location = new Point(FieldX, 360);
+            _telefonBox.Location = new Point(FieldX, 448);
+            _rol.Location = new Point(FieldX + 194, 448);
+            _rolLabel.Location = new Point(FieldX + 194, 424);
+            _parolaBox.Location = new Point(FieldX, 528);
+            _confirmaBox.Location = new Point(FieldX + 194, 528);
+            _passwordStrengthBar.Location = new Point(FieldX, 584);
+            _passwordHint.Location = new Point(FieldX, 592);
+            _error.Location = new Point(FieldX, 616);
+            if (_createButton != null) _createButton.Location = new Point(FieldX, 668);
+            if (_backLink != null) _backLink.Location = new Point(FieldX, 740);
+        }
+        else
+        {
+            _telefonBox.Location = new Point(FieldX, 360);
+            _rol.Location = new Point(FieldX + 194, 360);
+            _rolLabel.Location = new Point(FieldX + 194, 336);
+            _parolaBox.Location = new Point(FieldX, 440);
+            _confirmaBox.Location = new Point(FieldX + 194, 440);
+            _passwordStrengthBar.Location = new Point(FieldX, 496);
+            _passwordHint.Location = new Point(FieldX, 504);
+            _error.Location = new Point(FieldX, 528);
+            if (_createButton != null) _createButton.Location = new Point(FieldX, 580);
+            if (_backLink != null) _backLink.Location = new Point(FieldX, 652);
+        }
+    }
+
+    private static bool IsValidEmail(string email)
+    {
+        var trimmed = email.Trim();
+        try
+        {
+            var addr   = new MailAddress(trimmed);
+            if (!string.Equals(addr.Address, trimmed, StringComparison.OrdinalIgnoreCase)) return false;
+            var allowed = new HashSet<string> { "gmail.com","yahoo.com","outlook.com","hotmail.com","icloud.com","mail.ru","yandex.com","proton.me","protonmail.com" };
+            return allowed.Contains(addr.Host.ToLowerInvariant());
+        }
+        catch { return false; }
+    }
+
+    // ── Password strength ─────────────────────────────────────────────────────
+    private void UpdatePasswordStrength()
+    {
+        var score = 0;
+        if (_parola.Text.Length >= 8)                           score++;
+        if (_parola.Text.Any(char.IsUpper))                     score++;
+        if (_parola.Text.Any(ch => !char.IsLetterOrDigit(ch)))  score++;
+        _passwordStrengthBar.TargetProgress = score / 3f;
+        _passwordStrengthBar.FillColor = score switch { 0 => Color.FromArgb(190,190,190), 1 => Color.FromArgb(239,68,68), 2 => Color.FromArgb(245,158,11), _ => AppTheme.Success };
+        _passwordHint.ForeColor = score == 3 ? AppTheme.Success : Color.FromArgb(110, 118, 136);
+    }
+
+    private void ShowError(string text) => _error.Text = text;
+
+    // ── Inner types ───────────────────────────────────────────────────────────
+    private sealed class BufferedPanel : Panel
+    {
+        public BufferedPanel() { DoubleBuffered = true; SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true); }
+    }
+
+    private sealed class PasswordStrengthBar : Control
+    {
+        private readonly System.Windows.Forms.Timer _timer = new() { Interval = 12 };
+        private float _progress;
+        private float _targetProgress;
+        private Color _fillColor = Color.FromArgb(190, 190, 190);
+
+        public PasswordStrengthBar()
+        {
+            DoubleBuffered = true; BackColor = Color.White;
+            _timer.Tick += (_, _) =>
+            {
+                _progress += (_targetProgress - _progress) * 0.22f;
+                if (Math.Abs(_targetProgress - _progress) < 0.01f) { _progress = _targetProgress; _timer.Stop(); }
+                Invalidate();
+            };
+        }
+        public float TargetProgress { get => _targetProgress; set { _targetProgress = Math.Clamp(value, 0f, 1f); _timer.Start(); } }
+        public Color FillColor      { get => _fillColor;      set { _fillColor = value; Invalidate(); } }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            AppTheme.ApplyHighQualityGraphics(e.Graphics);
+            var rect = new Rectangle(0, 0, Width - 1, Height - 1);
+            using var trackPath = AppTheme.RoundedPath(rect, Height / 2);
+            e.Graphics.FillPath(new SolidBrush(Color.FromArgb(225, 225, 225)), trackPath);
+            var fillWidth = (int)Math.Round((Width - 1) * _progress);
+            if (fillWidth <= 0) return;
+            var fillRect = new Rectangle(0, 0, Math.Max(Height, fillWidth), Height - 1);
+            using var fillPath = AppTheme.RoundedPath(fillRect, Height / 2);
+            e.Graphics.FillPath(new SolidBrush(_fillColor), fillPath);
+        }
+    }
+
+    private static readonly Image HeroImage = LoadHeroImage();
+    private static Image LoadHeroImage()
+    {
+        try
+        {
+            var path = Path.Combine(AppContext.BaseDirectory, "Assets", "4 Ways to Improve Construction Site Safety.jpeg");
+            if (File.Exists(path)) return new Bitmap(path);
+        }
+        catch { }
+        var bmp = new Bitmap(1200, 900);
+        using var g = Graphics.FromImage(bmp);
+        AppTheme.ApplyHighQualityGraphics(g);
+        using var gradient = new System.Drawing.Drawing2D.LinearGradientBrush(new Rectangle(0, 0, bmp.Width, bmp.Height), Color.FromArgb(20, 28, 44), Color.FromArgb(8, 12, 22), 45f);
+        g.FillRectangle(gradient, 0, 0, bmp.Width, bmp.Height);
+        using var accent = new SolidBrush(Color.FromArgb(90, AppTheme.Accent));
+        g.FillRectangle(accent, 220, 180, 760, 420);
+        return bmp;
+    }
+
+    private sealed class RegisterHeroPanel : Panel
+    {
+        public RegisterHeroPanel() { DoubleBuffered = true; ResizeRedraw = true; SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true); }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            AppTheme.ApplyHighQualityGraphics(e.Graphics);
+            if (HeroImage != null) AppTheme.DrawImageCover(e.Graphics, HeroImage, ClientRectangle);
+            else e.Graphics.Clear(Color.FromArgb(14, 18, 26));
+            using var overlay = new SolidBrush(Color.FromArgb(70, 0, 0, 0));
+            e.Graphics.FillRectangle(overlay, ClientRectangle);
+        }
+    }
+}

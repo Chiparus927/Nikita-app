@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <connectionStrings>
+    <add name="Valcongrup"
+         connectionString="Server=127.0.0.1;Port=3306;Database=valcongrup;Uid=root;Pwd=Nikita2008;CharSet=utf8mb4;"
+         providerName="MySql.Data.MySqlClient"/>
+  </connectionStrings>
+</configuration>

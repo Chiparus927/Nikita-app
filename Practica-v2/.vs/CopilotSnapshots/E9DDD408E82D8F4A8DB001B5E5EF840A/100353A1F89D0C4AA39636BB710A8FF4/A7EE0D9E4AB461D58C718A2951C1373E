@@ -1,0 +1,473 @@
+﻿using System.Drawing.Drawing2D;
+using Valcongrup.Data;
+using Valcongrup.Models;
+using Valcongrup.Forms.Dialogs;
+
+namespace Valcongrup.UserControls;
+
+public class UcDashboard : UserControl
+{
+    private static readonly Color BgMain    = Color.FromArgb(245, 246, 248);
+    private static readonly Color CardWhite = Color.FromArgb(255, 255, 255);
+    private static readonly Color TextDark  = Color.FromArgb(31,  41,  55);
+    private static readonly Color TextGray  = Color.FromArgb(107, 114, 128);
+    private static readonly Color TextMuted = Color.FromArgb(156, 163, 175);
+    private static readonly Color BlueDark  = Color.FromArgb(30,  58,  138);
+    private static readonly Color BlueAccent= Color.FromArgb(59,  130, 246);
+    private static readonly Color Border    = Color.FromArgb(229, 231, 235);
+    private static readonly Color Red       = Color.FromArgb(239,  68,  68);
+
+    private Label? _lblProiecte, _lblSarcini, _lblEchipa, _lblBuget;
+    private DataGridView? _requestsGrid;
+    private Panel? _chartPanel;
+    private Label? _emptyRequestsLabel;
+    private readonly List<Proiect> _pendingRequests = new();
+
+    public UcDashboard()
+    {
+        try
+        {
+            DoubleBuffered = true;
+            BackColor      = BgMain;
+            Padding        = Padding.Empty;
+            BuildDashboard();
+            Load += async (_, _) => await LoadDashboardData();
+        }
+        catch (Exception ex) { LogCrash(ex); BuildFallback(ex); }
+    }
+
+    private void BuildDashboard()
+    {
+        SuspendLayout();
+        Controls.Clear();
+        Controls.Add(BuildHeaderPanel());
+        Controls.Add(BuildCardPanel());
+        Controls.Add(BuildMiddlePanel());
+        Controls.Add(BuildTablePanel());
+        ResumeLayout(true);
+    }
+
+    // ── 1. HEADER ────────────────────────────────────────────────────────────
+    private Panel BuildHeaderPanel()
+    {
+        var panel = new Panel { Dock = DockStyle.Top, Height = 90, BackColor = CardWhite, Padding = new Padding(40, 0, 40, 0) };
+        panel.Paint += (_, e) => { using var pen = new Pen(Border, 1); e.Graphics.DrawLine(pen, 0, panel.Height - 1, panel.Width, panel.Height - 1); };
+
+        var lblTitle    = new Label { Text = "Executive Dashboard", Font = new Font("Segoe UI", 18f, FontStyle.Bold), ForeColor = TextDark, AutoSize = true, Location = new Point(40, 18), BackColor = CardWhite };
+        var lblSubtitle = new Label { Text = "Prezintă general activitatea și logistica proiectelor active.", Font = new Font("Segoe UI", 9f), ForeColor = TextGray, AutoSize = true, Location = new Point(40, 54), BackColor = CardWhite };
+
+        var btnExport = new Button { Text = "📄 EXPORT PDF", Size = new Size(132, 36), BackColor = CardWhite, ForeColor = TextDark, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 9f), Cursor = Cursors.Hand };
+        btnExport.FlatAppearance.BorderColor = Border; btnExport.FlatAppearance.BorderSize = 1;
+        btnExport.Click += (_, _) => ExportToPdf();
+
+        var btnNew = new Button { Text = "＋ PROIECT NOU", Size = new Size(142, 36), BackColor = BlueDark, ForeColor = CardWhite, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 9f, FontStyle.Bold), Cursor = Cursors.Hand };
+        btnNew.FlatAppearance.BorderSize = 0;
+        btnNew.MouseEnter += (_, _) => btnNew.BackColor = Color.FromArgb(25, 50, 120);
+        btnNew.MouseLeave += (_, _) => btnNew.BackColor = BlueDark;
+        btnNew.Click += (_, _) => CreateNewProject();
+
+        btnExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        btnNew.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        void Place()
+        {
+            var right = panel.Width - 40;
+            btnNew.Location = new Point(right - btnNew.Width, 27);
+            right -= btnNew.Width + 12;
+            btnExport.Location = new Point(Math.Max(40, right - btnExport.Width), 27);
+        }
+        panel.Resize += (_, _) => Place();
+        Place();
+
+        panel.Controls.AddRange(new Control[] { lblTitle, lblSubtitle, btnExport, btnNew });
+        return panel;
+    }
+
+    // ── 2. STAT CARDS ────────────────────────────────────────────────────────
+    private Panel BuildCardPanel()
+    {
+        const int H = 150;
+        var panel = new Panel { Dock = DockStyle.Top, Height = H, BackColor = BgMain };
+        var cards = new[]
+        {
+            CreateStatCard("🏢", "PROIECTE ACTIVE", "—", "+2",         out _lblProiecte),
+            CreateStatCard("📋", "SARCINI",         "—", "5 critice",  out _lblSarcini),
+            CreateStatCard("👥", "MEMBRI",           "—", "echipe mari",out _lblEchipa),
+            CreateStatCard("💰", "BUGET ALOCAT",    "—", "total Q3",   out _lblBuget)
+        };
+        foreach (var c in cards) panel.Controls.Add(c);
+
+        void Layout()
+        {
+            const int pad = 40, gap = 16, cardH = 120;
+            int w = (panel.Width - pad * 2 - gap * 3) / 4;
+            int y = (H - cardH) / 2;
+            for (int i = 0; i < cards.Length; i++)
+            {
+                cards[i].SetBounds(pad + i * (w + gap), y, w, cardH);
+                // Keep sub-label width in sync with card width
+                var subLbl = cards[i].Controls.OfType<Label>().LastOrDefault();
+                if (subLbl != null) subLbl.Width = w - 32;
+            }
+        }
+        panel.Resize += (_, _) => Layout();
+        Layout();
+        return panel;
+    }
+
+    private Panel CreateStatCard(string icon, string label, string value, string sub, out Label valLbl)
+    {
+        var card = new Panel { BackColor = CardWhite };
+        card.Paint += (_, e) => { e.Graphics.SmoothingMode = SmoothingMode.AntiAlias; using var p = new Pen(Border, 1); e.Graphics.DrawRectangle(p, 0, 0, card.Width - 1, card.Height - 1); };
+
+        var lblIcon  = new Label { Text = icon,  Font = new Font("Segoe UI", 15f),                 ForeColor = TextGray, AutoSize = true,  Location = new Point(16, 10),  BackColor = CardWhite };
+        var lblLabel = new Label { Text = label, Font = new Font("Segoe UI", 7.5f, FontStyle.Bold),ForeColor = TextGray, AutoSize = true,  Location = new Point(46, 13),  BackColor = CardWhite };
+        var lblValue = new Label { Text = value, Font = new Font("Segoe UI", 24f, FontStyle.Bold), ForeColor = TextDark, AutoSize = true,  Location = new Point(16, 34),  BackColor = CardWhite };
+        // Sub-label: fixed height, MiddleLeft aligned, no clipping
+        var lblSub   = new Label
+        {
+            Text      = sub,
+            Font      = new Font("Segoe UI", 8f),
+            ForeColor = TextMuted,
+            AutoSize  = false,
+            Height    = 22,
+            Width     = 220, // will be updated by Layout() to card width
+            Location  = new Point(16, 88),
+            BackColor = CardWhite,
+            TextAlign = ContentAlignment.MiddleLeft
+        };
+
+        valLbl = lblValue;
+        card.Controls.AddRange(new Control[] { lblIcon, lblLabel, lblValue, lblSub });
+        return card;
+    }
+
+    // ── 3. MIDDLE ─────────────────────────────────────────────────────────────
+    private Panel BuildMiddlePanel()
+    {
+        const int H = 300; const int PAD = 40; const int GAP = 16;
+        var outer = new Panel { Dock = DockStyle.Top, Height = H, BackColor = BgMain };
+
+        _chartPanel = new Panel { BackColor = CardWhite };
+        _chartPanel.Paint += ChartPanel_Paint;
+
+        var lblChartTitle = new Label { Text = "Progres Săptămânal Proiecte", Font = new Font("Segoe UI", 11f, FontStyle.Bold), ForeColor = TextDark, AutoSize = true, Location = new Point(20, 14), BackColor = CardWhite };
+        var lblLegFin     = new Label { Text = "■ Finalizat", Font = new Font("Segoe UI", 8f), ForeColor = BlueDark,    AutoSize = true, Location = new Point(20, 44), BackColor = CardWhite };
+        var lblLegLucru   = new Label { Text = "■ În lucru",  Font = new Font("Segoe UI", 8f), ForeColor = BlueAccent,  AutoSize = true, Location = new Point(106, 44), BackColor = CardWhite };
+        _chartPanel.Controls.AddRange(new Control[] { lblChartTitle, lblLegFin, lblLegLucru });
+
+        var pnlProject = new Panel { BackColor = CardWhite };
+        pnlProject.Paint += (_, e) => { using var pen = new Pen(Border, 1); e.Graphics.DrawRectangle(pen, 0, 0, pnlProject.Width - 1, pnlProject.Height - 1); };
+
+        var pb = new PictureBox { SizeMode = PictureBoxSizeMode.StretchImage, BackColor = BlueDark };
+        try
+        {
+            var imgPath = Path.Combine(Application.StartupPath, "Assets", "blog-construction.jpg");
+            if (File.Exists(imgPath)) { pb.Image = Image.FromFile(imgPath); }
+        }
+        catch { }
+        pb.Paint += (_, e) =>
+        {
+            const string badge = "PROJECT OF TOP";
+            using var f = new Font("Segoe UI", 7f, FontStyle.Bold);
+            var sz   = e.Graphics.MeasureString(badge, f);
+            var rect = new Rectangle(12, pb.Height - (int)sz.Height - 16, (int)sz.Width + 16, (int)sz.Height + 8);
+            e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(210, BlueDark)), rect);
+            e.Graphics.DrawString(badge, f, Brushes.White, rect.X + 8, rect.Y + 4);
+        };
+
+        var lblName = new Label { Text = "Victoria Center Phase II",  Font = new Font("Segoe UI", 12f, FontStyle.Bold), ForeColor = TextDark, AutoSize = true, BackColor = CardWhite };
+        var lblEst  = new Label { Text = "Estimare: Decembrie 2024", Font = new Font("Segoe UI", 9f),                  ForeColor = TextGray, AutoSize = true, BackColor = CardWhite };
+        pnlProject.Controls.AddRange(new Control[] { pb, lblName, lblEst });
+
+        void Layout()
+        {
+            int avail = outer.Width - PAD * 2;
+            int cw    = (int)(avail * 0.60) - GAP / 2;
+            int pw    = avail - cw - GAP;
+            _chartPanel.SetBounds(PAD, 8, cw, H - 16);
+            pnlProject.SetBounds(PAD + cw + GAP, 8, pw, H - 16);
+            int pbH = (int)(pnlProject.Height * 0.62);
+            pb.SetBounds(0, 0, pnlProject.Width, pbH);
+            lblName.Location = new Point(14, pbH + 10);
+            lblEst.Location  = new Point(14, pbH + 36);
+            _chartPanel.Invalidate();
+        }
+        outer.Resize += (_, _) => Layout();
+        outer.Controls.AddRange(new Control[] { _chartPanel, pnlProject });
+        Load += (_, _) => Layout();
+        return outer;
+    }
+
+    private void ChartPanel_Paint(object? sender, PaintEventArgs e)
+    {
+        if (_chartPanel == null) return;
+        var g = e.Graphics; g.SmoothingMode = SmoothingMode.AntiAlias;
+        using (var pen = new Pen(Border, 1)) g.DrawRectangle(pen, 0, 0, _chartPanel.Width - 1, _chartPanel.Height - 1);
+
+        const int topOff = 70, btmPad = 28, sidePad = 20;
+        int areaH = _chartPanel.Height - topOff - btmPad;
+        int areaW = _chartPanel.Width  - sidePad * 2;
+        if (areaH < 30 || areaW < 80) return;
+
+        int[]    fin  = { 80, 50, 90, 120, 70, 110, 130 };
+        int[]    luc  = { 40, 60, 50,  30, 70,  50,  40 };
+        string[] days = { "L", "Ma", "Mi", "J", "V", "S", "D" };
+
+        int barW = Math.Max(10, Math.Min(38, areaW / 7 - 10));
+        int totalW = barW * 7 + 8 * 6;
+        int startX = sidePad + (areaW - totalW) / 2;
+
+        using var fDay = new Font("Segoe UI", 8f);
+        for (int i = 0; i < 7; i++)
+        {
+            int x  = startX + i * (barW + 8);
+            int h1 = (int)(fin[i] / 150.0 * areaH);
+            int h2 = (int)(luc[i] / 150.0 * areaH);
+            int bY = topOff + areaH;
+            g.FillRectangle(new SolidBrush(BlueDark),   x, bY - h1, barW, h1);
+            g.FillRectangle(new SolidBrush(BlueAccent), x, bY - h1 - h2, barW, h2);
+            var ds = g.MeasureString(days[i], fDay);
+            g.DrawString(days[i], fDay, new SolidBrush(TextGray), x + barW / 2f - ds.Width / 2f, bY + 4);
+        }
+    }
+
+    // ── 4. TABLE / REQUESTS ───────────────────────────────────────────────────
+    private Panel BuildTablePanel()
+    {
+        var outer = new Panel { Dock = DockStyle.Fill, BackColor = BgMain, Padding = new Padding(40, 0, 40, 30) };
+
+        var header = new Panel { Dock = DockStyle.Top, Height = 50, BackColor = BgMain };
+        var lblTitle  = new Label { Text = "Cereri proiecte clienți", Font = new Font("Segoe UI", 13f, FontStyle.Bold), ForeColor = TextDark, AutoSize = true, Location = new Point(0, 13), BackColor = BgMain };
+        var lblFilter = new Label { Text = "Filtrează după:", Font = new Font("Segoe UI", 8.5f), ForeColor = TextGray, AutoSize = true, BackColor = BgMain };
+        var cmb = new ComboBox { Width = 130, Height = 28, DropDownStyle = ComboBoxStyle.DropDownList, Font = new Font("Segoe UI", 9f) };
+        cmb.Items.AddRange(new object[] { "Toate cererile", "Cerere", "Activ", "Refuzat" });
+        cmb.SelectedIndex = 0;
+        cmb.SelectedIndexChanged += (_, _) => RefreshRequestsGrid(cmb.SelectedItem?.ToString());
+
+        lblFilter.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        cmb.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        header.Resize += (_, _) =>
+        {
+            lblFilter.Location = new Point(header.Width - lblFilter.Width - cmb.Width - 26, 16);
+            cmb.Location = new Point(header.Width - cmb.Width - 16, 12);
+        };
+        header.Controls.AddRange(new Control[] { lblTitle, lblFilter, cmb });
+        header.Resize += (_, _) => { }; // ensure initial placement fires in layout
+
+        _requestsGrid = new DataGridView
+        {
+            Dock = DockStyle.Fill,
+            BackgroundColor = CardWhite,
+            GridColor = Border,
+            BorderStyle = BorderStyle.None,
+            RowHeadersVisible = false,
+            AllowUserToAddRows = false,
+            ReadOnly = true,
+            SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+            ColumnHeadersHeight = 40,
+            EnableHeadersVisualStyles = false,
+            CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
+            AllowUserToOrderColumns = false,
+            AllowUserToResizeColumns = false,
+            AllowUserToResizeRows = false
+        };
+        _requestsGrid.RowTemplate.Height = 46;
+        _requestsGrid.ColumnHeadersDefaultCellStyle.BackColor  = Color.FromArgb(249, 250, 251);
+        _requestsGrid.ColumnHeadersDefaultCellStyle.ForeColor  = TextGray;
+        _requestsGrid.ColumnHeadersDefaultCellStyle.Font       = new Font("Segoe UI", 8f, FontStyle.Bold);
+        _requestsGrid.ColumnHeadersDefaultCellStyle.Alignment  = DataGridViewContentAlignment.MiddleLeft;
+        _requestsGrid.ColumnHeadersDefaultCellStyle.Padding    = new Padding(12, 0, 0, 0);
+        _requestsGrid.DefaultCellStyle.BackColor          = CardWhite;
+        _requestsGrid.DefaultCellStyle.ForeColor          = TextDark;
+        _requestsGrid.DefaultCellStyle.Font               = new Font("Segoe UI", 9f);
+        _requestsGrid.DefaultCellStyle.SelectionBackColor = Color.FromArgb(249, 250, 251);
+        _requestsGrid.DefaultCellStyle.SelectionForeColor = TextDark;
+        _requestsGrid.DefaultCellStyle.Padding            = new Padding(12, 0, 12, 0);
+
+        _requestsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "id",      HeaderText = "ID",              DataPropertyName = "Id",         Visible = false });
+        _requestsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "client",  HeaderText = "CLIENT / COMPANIE",DataPropertyName = "NumeClient", FillWeight = 28 });
+        _requestsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "tip",     HeaderText = "TIP PROIECT",      DataPropertyName = "Descriere",  FillWeight = 24 });
+        _requestsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "valoare", HeaderText = "VALOARE EST.",     DataPropertyName = "BugetFmt",   FillWeight = 18 });
+        _requestsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "status",  HeaderText = "STATUS",           DataPropertyName = "Status",     FillWeight = 14 });
+        _requestsGrid.Columns.Add(new DataGridViewTextBoxColumn { Name = "actiuni", HeaderText = "ACȚIUNI",          FillWeight = 20 });
+
+        _requestsGrid.CellPainting += Grid_CellPainting;
+        _requestsGrid.CellClick    += Grid_CellClick;
+
+        _emptyRequestsLabel = new Label
+        {
+            Dock = DockStyle.Fill,
+            Text = "Nu există cereri în așteptare.",
+            TextAlign = ContentAlignment.MiddleCenter,
+            ForeColor = TextGray,
+            Font = new Font("Segoe UI", 10f, FontStyle.Regular),
+            BackColor = CardWhite,
+            Visible = false
+        };
+
+        outer.Controls.Add(_emptyRequestsLabel);
+        outer.Controls.Add(_requestsGrid);
+        outer.Controls.Add(header);
+        return outer;
+    }
+
+    private void RefreshRequestsGrid(string? filter)
+    {
+        if (_requestsGrid == null) return;
+        var src = filter == null || filter == "Toate cererile"
+            ? _pendingRequests
+            : _pendingRequests.Where(p => p.Status == filter).ToList();
+
+        var dt = new System.Data.DataTable();
+        dt.Columns.Add("Id",       typeof(int));
+        dt.Columns.Add("NumeClient");
+        dt.Columns.Add("Descriere");
+        dt.Columns.Add("BugetFmt");
+        dt.Columns.Add("Status");
+        foreach (var p in src)
+            dt.Rows.Add(p.Id, p.NumeClient ?? "N/A", p.Descriere ?? "—", $"{p.BugetTotal:N0} RON", p.Status);
+
+        _requestsGrid.DataSource = dt;
+        _requestsGrid.Visible = src.Count > 0;
+        if (_emptyRequestsLabel != null)
+        {
+            _emptyRequestsLabel.Visible = src.Count == 0;
+        }
+    }
+
+    private void Grid_CellPainting(object? sender, DataGridViewCellPaintingEventArgs e)
+    {
+        if (e.RowIndex < 0 || e.ColumnIndex != 5 || e.CellBounds.Width < 10) return;
+        e.Handled = true;
+        e.Graphics!.FillRectangle(new SolidBrush(CardWhite), e.CellBounds);
+        using (var pen = new Pen(Border, 1)) e.Graphics.DrawLine(pen, e.CellBounds.Left, e.CellBounds.Bottom - 1, e.CellBounds.Right, e.CellBounds.Bottom - 1);
+
+        var btnA = new Rectangle(e.CellBounds.X + 8, e.CellBounds.Y + 8, 70, 28);
+        e.Graphics.FillRectangle(new SolidBrush(BlueDark), btnA);
+        using var fBold = new Font("Segoe UI", 8f, FontStyle.Bold);
+        e.Graphics.DrawString("Acceptă", fBold, Brushes.White, btnA.X + 7, btnA.Y + 7);
+
+        var btnR = new Rectangle(e.CellBounds.X + 84, e.CellBounds.Y + 8, 64, 28);
+        e.Graphics.DrawRectangle(new Pen(Border, 1), btnR);
+        using var fReg = new Font("Segoe UI", 8f);
+        e.Graphics.DrawString("Refuză", fReg, new SolidBrush(TextGray), btnR.X + 10, btnR.Y + 7);
+    }
+
+    private void Grid_CellClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        if (sender is not DataGridView grid || e.RowIndex < 0 || e.ColumnIndex != 5) return;
+        var cursor = grid.PointToClient(Cursor.Position);
+        var bounds = grid.GetCellDisplayRectangle(5, e.RowIndex, false);
+        var btnA   = new Rectangle(bounds.X + 8,  bounds.Y + 8, 70, 28);
+        var btnR   = new Rectangle(bounds.X + 84, bounds.Y + 8, 64, 28);
+
+        int projectId = 0;
+        if (grid.Rows[e.RowIndex].Cells["id"].Value is int id) projectId = id;
+        else if (int.TryParse(grid.Rows[e.RowIndex].Cells["id"].Value?.ToString(), out var pid)) projectId = pid;
+        if (projectId == 0) return;
+
+        if (btnA.Contains(cursor))
+        {
+            try
+            {
+                var repo = new ProiecteRepository();
+                repo.AcceptRequest(projectId, Session.CurrentUser!.Id);
+                new JurnalRepository().Log(Session.CurrentUser.Id, projectId, $"Cerere acceptată (id={projectId})", "Proiect", projectId);
+                _ = LoadDashboardData();
+            }
+            catch (Exception ex) { MessageBox.Show("Eroare la acceptare: " + ex.Message, "VALCONGRUP", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+        else if (btnR.Contains(cursor))
+        {
+            if (MessageBox.Show("Refuzi această cerere?", "Confirmare", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            try
+            {
+                var repo = new ProiecteRepository();
+                repo.RejectRequest(projectId);
+                new JurnalRepository().Log(Session.CurrentUser!.Id, projectId, $"Cerere refuzată (id={projectId})", "Proiect", projectId);
+                _ = LoadDashboardData();
+            }
+            catch (Exception ex) { MessageBox.Show("Eroare la refuzare: " + ex.Message, "VALCONGRUP", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+    }
+
+    // ── DATA ──────────────────────────────────────────────────────────────────
+    private async Task LoadDashboardData()
+    {
+        try
+        {
+            var dashRepo    = new DashboardRepository();
+            var proiecteRepo= new ProiecteRepository();
+
+            var kpis     = await Task.Run(() => dashRepo.GetKpis());
+            var requests = IsManager() ? await Task.Run(() => proiecteRepo.GetPendingRequests()) : new List<Proiect>();
+
+            void UpdateUi()
+            {
+                if (_lblProiecte != null) _lblProiecte.Text = kpis.ActiveProjectsCount.ToString();
+                if (_lblSarcini  != null) _lblSarcini.Text  = kpis.PendingTasksCount.ToString();
+                if (_lblEchipa   != null) _lblEchipa.Text   = kpis.TeamMembersCount.ToString();
+                if (_lblBuget    != null) _lblBuget.Text    = FormatBudget(kpis.TotalUtilizedBudget);
+                _pendingRequests.Clear();
+                _pendingRequests.AddRange(requests);
+                RefreshRequestsGrid("Toate cererile");
+                _chartPanel?.Invalidate();
+            }
+
+            if (InvokeRequired) Invoke(UpdateUi); else UpdateUi();
+        }
+        catch (Exception ex) { LogCrash(ex); }
+    }
+
+    private string FormatBudget(decimal v) =>
+        v >= 1_000_000 ? $"{v / 1_000_000:0.##}M" : v >= 1_000 ? $"{v / 1_000:0.#}k" : $"{v:N0}";
+
+    private void ExportToPdf() =>
+        MessageBox.Show("Funcția de export PDF va fi implementată.", "Export PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+    private void CreateNewProject()
+    {
+        if (IsClient())
+        {
+            using var dlg = new DialogProjectRequest();
+            if (dlg.ShowDialog(ParentForm) == DialogResult.OK)
+            {
+                var repo = new ProiecteRepository();
+                var id   = repo.CreateClientRequest(Session.CurrentUser!.Id, dlg.NumeProiect, dlg.Descriere, dlg.BugetEstimat, dlg.TermenLimita);
+                new JurnalRepository().Log(Session.CurrentUser.Id, id, $"Clientul {Session.CurrentUser.Prenume} a trimis cerere pentru {dlg.NumeProiect}", "Proiect", id);
+                _ = LoadDashboardData();
+            }
+        }
+        else
+        {
+            using var dlg = new DialogProiect();
+            if (dlg.ShowDialog(ParentForm) == DialogResult.OK)
+            {
+                var repo = new ProiecteRepository();
+                var id   = repo.Insert(dlg.Proiect);
+                new JurnalRepository().Log(Session.CurrentUser!.Id, id, $"A adăugat proiectul '{dlg.Proiect.Nume}'", "Proiect", id);
+                _ = LoadDashboardData();
+            }
+        }
+    }
+
+    private void BuildFallback(Exception ex)
+    {
+        Controls.Clear(); BackColor = CardWhite; Padding = new Padding(40);
+        Controls.AddRange(new Control[]
+        {
+            new Label { Text = "Executive Dashboard", Font = new Font("Segoe UI", 20f, FontStyle.Bold), ForeColor = TextDark, AutoSize = true, Location = new Point(40, 28) },
+            new Label { Text = $"Eroare la încărcare: {ex.Message}", Font = new Font("Segoe UI", 10f), ForeColor = Red, AutoSize = false, Size = new Size(700, 60), Location = new Point(40, 76), BackColor = CardWhite }
+        });
+    }
+
+    private static void LogCrash(Exception ex)
+    {
+        try { var d = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Valcongrup"); Directory.CreateDirectory(d); File.AppendAllText(Path.Combine(d, "dashboard-crash.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}\r\n{ex}\r\n\r\n"); } catch { }
+    }
+
+    private static bool IsClient()  => Session.CurrentUser?.NumeRol?.Equals("Client",  StringComparison.OrdinalIgnoreCase) ?? false;
+    private static bool IsManager() => (Session.CurrentUser?.NumeRol?.Equals("Manager", StringComparison.OrdinalIgnoreCase) ?? false)
+                                    || (Session.CurrentUser?.NumeRol?.Equals("Admin",   StringComparison.OrdinalIgnoreCase) ?? false);
+}

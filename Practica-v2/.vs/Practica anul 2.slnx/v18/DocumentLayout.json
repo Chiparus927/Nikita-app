@@ -1,0 +1,237 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\.copilot\\plans\\plan-dashboard-ui-interaction-fix-plan.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}|MarkdownSecurePreview"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\.copilot\\plans\\plan-project-health-check-for-valcongrup.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}|MarkdownSecurePreview"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\ModernUi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Desktop\\UserControls\\ModernUi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcRapoarte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Desktop\\UserControls\\UcRapoarte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\App.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Desktop\\App.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\Forms\\FormLogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Desktop\\Forms\\FormLogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\Forms\\FormRegister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Desktop\\Forms\\FormRegister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcUserManagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Desktop\\UserControls\\UcUserManagement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Web\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\Views\\Shared\\_Layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Web\\Views\\Shared\\_Layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Web\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcDashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Cod\\Valcongrup.Desktop\\UserControls\\UcDashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "plan-dashboard-ui-interaction-fix-plan.md [Preview]",
+              "DocumentMoniker": "C:\\Users\\Nikita\\.copilot\\plans\\plan-dashboard-ui-interaction-fix-plan.md",
+              "RelativeDocumentMoniker": "..\\..\\.copilot\\plans\\plan-dashboard-ui-interaction-fix-plan.md",
+              "ToolTip": "C:\\Users\\Nikita\\.copilot\\plans\\plan-dashboard-ui-interaction-fix-plan.md [Preview]",
+              "RelativeToolTip": "..\\..\\.copilot\\plans\\plan-dashboard-ui-interaction-fix-plan.md [Preview]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-05-18T06:11:58.051Z",
+              "EditorCaption": " [Preview]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UcDashboard.cs",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcDashboard.cs",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Desktop\\UserControls\\UcDashboard.cs",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcDashboard.cs",
+              "RelativeToolTip": "Cod\\Valcongrup.Desktop\\UserControls\\UcDashboard.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T06:11:55.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "site.js",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Web\\wwwroot\\js\\site.js",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\wwwroot\\js\\site.js",
+              "RelativeToolTip": "Cod\\Valcongrup.Web\\wwwroot\\js\\site.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAEBVwAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-05-18T06:11:15.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Web\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Cod\\Valcongrup.Web\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAABoAAAAAAAAAAEBVwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-18T06:10:51.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Web\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Web\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "Cod\\Valcongrup.Web\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAABQAAAAAAAAAAEBVwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-05-18T06:10:23.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UcUserManagement.cs",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcUserManagement.cs",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Desktop\\UserControls\\UcUserManagement.cs",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcUserManagement.cs",
+              "RelativeToolTip": "Cod\\Valcongrup.Desktop\\UserControls\\UcUserManagement.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T06:03:43.749Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-18T04:59:44.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UcRapoarte.cs",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcRapoarte.cs",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Desktop\\UserControls\\UcRapoarte.cs",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\UcRapoarte.cs",
+              "RelativeToolTip": "Cod\\Valcongrup.Desktop\\UserControls\\UcRapoarte.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwNwBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:59:41.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ModernUi.cs",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\ModernUi.cs",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Desktop\\UserControls\\ModernUi.cs",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\UserControls\\ModernUi.cs",
+              "RelativeToolTip": "Cod\\Valcongrup.Desktop\\UserControls\\ModernUi.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwJoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:59:36.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "plan-project-health-check-for-valcongrup.md [Preview]",
+              "DocumentMoniker": "C:\\Users\\Nikita\\.copilot\\plans\\plan-project-health-check-for-valcongrup.md",
+              "RelativeDocumentMoniker": "..\\..\\.copilot\\plans\\plan-project-health-check-for-valcongrup.md",
+              "ToolTip": "C:\\Users\\Nikita\\.copilot\\plans\\plan-project-health-check-for-valcongrup.md [Preview]",
+              "RelativeToolTip": "..\\..\\.copilot\\plans\\plan-project-health-check-for-valcongrup.md [Preview]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-05-17T22:28:48.528Z",
+              "EditorCaption": " [Preview]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\App.config",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Desktop\\App.config",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\App.config",
+              "RelativeToolTip": "Cod\\Valcongrup.Desktop\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-05-18T05:02:39.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FormLogin.cs",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\Forms\\FormLogin.cs",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Desktop\\Forms\\FormLogin.cs",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\Forms\\FormLogin.cs",
+              "RelativeToolTip": "Cod\\Valcongrup.Desktop\\Forms\\FormLogin.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAIBJwC8BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T05:06:15.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FormRegister.cs",
+              "DocumentMoniker": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\Forms\\FormRegister.cs",
+              "RelativeDocumentMoniker": "Cod\\Valcongrup.Desktop\\Forms\\FormRegister.cs",
+              "ToolTip": "C:\\Users\\Nikita\\Desktop\\Practica anul 2\\Cod\\Valcongrup.Desktop\\Forms\\FormRegister.cs",
+              "RelativeToolTip": "Cod\\Valcongrup.Desktop\\Forms\\FormRegister.cs",
+              "ViewState": "AgIAABEBAAAAAAAAAIBJwP4BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T05:15:04.038Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

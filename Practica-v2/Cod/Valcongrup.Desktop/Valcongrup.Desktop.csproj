@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Valcongrup</AssemblyName>
+    <RootNamespace>Valcongrup</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <NoWarn>CA1416</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\blog-construction.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Bryce-Jaynes-scaled-e1682452320184@2x.png" Link="Assets\stadion-cricova-fc-barcelona.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\4 Ways to Improve Construction Site Safety.jpeg" Link="Assets\4 Ways to Improve Construction Site Safety.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\493275159_3971325509786773_7524297520521824502_n.jpg" Link="Assets\valcongrup-logo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.4.0" />
+    <PackageReference Include="ScottPlot.WinForms" Version="4.1.71" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.7" />
+  </ItemGroup>
+
+  <!-- ConfigurationManager loads Valcongrup.dll.config or Valcongrup.exe.config next to the app; sync both from App.config every build so edits are never stale. -->
+  <Target Name="SyncAppConfigForRuntime" AfterTargets="Build">
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\App.config" DestinationFiles="$(TargetDir)Valcongrup.exe.config" SkipUnchangedFiles="false" Condition="Exists('$(MSBuildProjectDirectory)\App.config')" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\App.config" DestinationFiles="$(TargetDir)Valcongrup.dll.config" SkipUnchangedFiles="false" Condition="Exists('$(MSBuildProjectDirectory)\App.config')" />
+  </Target>
+
+</Project>
